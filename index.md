@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Research Computing User Guide
 
 You can use the [editor on GitHub](https://github.com/dorcfandm/rcs.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
