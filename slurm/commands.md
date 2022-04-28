@@ -219,7 +219,7 @@ A full list of variables that specify data handled by sacct can be
 found with the `--helpformat` flag or by [visiting the slurm page on
 sacct](https://slurm.schedmd.com/sacct.html).
 
-### Controlling queued and running jobs
+## Controlling queued and running jobs
 
 The `scontrol` command provides extended control of your jobs
 run through Slurm. This includes actions like suspending a job,
