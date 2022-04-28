@@ -2,7 +2,7 @@
 sort: 2
 ---
 
-# Submitting and managing compute jobs
+# Compute jobs
 
 In most cases, research computing resources use Slurm for submitting and managing compute jobs.  Slurm  stands for **S**imple **l**inux **u**tility for **r**esource **m**anagement.  This section will
 
