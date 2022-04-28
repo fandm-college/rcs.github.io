@@ -3,3 +3,6 @@ title: Research Computing Services Franklin and Marshall College
 
 nav_version: true
 edit: false
+
+readme_index:
+  with_frontmatter: true
