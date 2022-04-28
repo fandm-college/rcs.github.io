@@ -1,2 +1,5 @@
 remote_theme: rundocs/jekyll-rtd-theme
 title: Research Computing Services Franklin and Marshall College
+
+nav_version: true
+edit: false
