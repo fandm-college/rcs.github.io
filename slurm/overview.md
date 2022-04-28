@@ -1,5 +1,6 @@
 ---
-sort: 1
+sort: 2
+title: Managing jobs
 ---
 
 ## Slurm overview
