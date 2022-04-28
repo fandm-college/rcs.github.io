@@ -1,5 +1,4 @@
 ---
-title: Introduction to job management
 sort: 1
 ---
 
