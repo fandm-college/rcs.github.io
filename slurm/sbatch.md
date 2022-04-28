@@ -1,7 +1,3 @@
----
-sort: 1
----
-
 # Submitting jobs
 
 Typically you will create a text file (refered to here as a job script) to specify the details of your job.  A job script is set of Linux commands paired with a set of resource requirements that can be passed to the Slurm job scheduler. Slurm will then generate a job according to the parameters set in the job script. Any commands that are included with the job script will be run within the job.  A job script will usually consist of four components:
