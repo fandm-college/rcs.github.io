@@ -1,3 +1,8 @@
+---
+title: Introduction to job management
+sort: 1
+---
+
 ## Slurm overview
 
 Slurm  stands for **S**imple **l**inux **u**tility for **r**esource **m**anagement.  Slurm allows you to submit, monitor, and manage your jobs on the cluster.  This section will describe how to create a job script and the usage of the `sbatch` command to submit jobs to the cluster.  Information on managing and monitoring jobs [can be found here](commands.md)
