@@ -1,14 +1,2 @@
 remote_theme: rundocs/jekyll-rtd-theme
 title: Research Computing Services Franklin and Marshall College
-
-defaults:
-  - scope:
-    path: slurm/overview.md
-    values:
-      menu: true
-      order: 1
-  - scope:
-      path: globus/overview.md
-    values:
-      menu: true
-      order: 2
