@@ -14,7 +14,7 @@ jobs that were queued in the system, so you can specify jobs that only
 you are running with the `--user` flag:
 
 ```bash
-$ squeue --user=your-username
+$ squeue --user=username
 ```
 
 You can output additional information with the `--long` flag. This
@@ -22,7 +22,7 @@ flag will print out the non-abbreviated default information with the
 addition of a *__timelimit__* field:
 
 ```bash
-$ squeue --user=your-username --long
+$ squeue --user=username --long
 ```
 
 The squeue command also provides users with a means to calculate a
@@ -35,7 +35,7 @@ jobs queued or running in the system. If a job with a higher priority
 is queued after the command is run, your job may be delayed.
 
 ```bash
-$ squeue --user=your-username --start
+$ squeue --user=username --start
 ```
 
 When checking the status of a job, you may want to repeatedly call the
@@ -45,7 +45,7 @@ the `--iterate` flag to our squeue command. This will run squeue every
 information without needing to repeatedly call squeue:
 
 ```bash
-$ squeue --user=your_username --start --iterate=n_seconds
+$ squeue --user=username --start --iterate=n_seconds
 ```
 
 Press `ctrl`-`c` to stop the command from looping and bring you back
@@ -62,16 +62,16 @@ command allows you to cancel jobs you are running using the job’s ID.
 The command looks like this:
 
 ```bash
-$ scancel your_job-id
+$ scancel job-id
 ```
 
 To cancel multiple jobs, you can use a comma-separated list of job IDs:
 
 ```bash
-$ scancel your_job-id1, your_job-id2, your_jobiid3
+$ scancel job-id1, job-id2, jobid3
 ```
 
-If you job has sub-jobs, it will be displayed as two numbers separated by an underscore.
+If your job has sub-jobs, it will be displayed as two numbers separated by an underscore.
 The first number is the job-id and the second is the sub-job-id.  You can use scancel
 to either cancel all the sub-jobs or just individual ones.  For example, if your
 job-id is 439 and it has four sub-jobs 439_1, 439_2, 439_3, 439_4 then 
@@ -92,7 +92,7 @@ about their currently running jobs. This includes information about *__CPU usage
 command as such:
 
 ```bash
-$ sstat --jobs=your_job-id
+$ sstat --jobs=job-id
 ```
 
 By default, sstat will pull up significantly more information than
@@ -102,7 +102,7 @@ output. The format flag takes a list of comma separated variables
 which specify output data:
 
 ```bash
-$ sstat --jobs=your_job-id --format=var_1,var_2, ... , var_N
+$ sstat --jobs=job-id --format=var_1,var_2, ... , var_N
 ```
 
 A chart of some these variables and their description is provided here:
@@ -121,7 +121,7 @@ For an example, to print out a job's job id, average cpu time, max
 rss, and number of tasks you would do:
 
 ```bash
-sstat --jobs=your_job-id --format=jobid,avecpu,maxrss,ntasks
+sstat --jobs=job-id --format=jobid,avecpu,maxrss,ntasks
 ```
 
 A full list of variables that specify data handled by sstat can be
@@ -136,13 +136,13 @@ that have been previously run on the system instead of currently
 running jobs. You can use a job's id...
 
 ```bash
-$ sacct --jobs=your_job-id
+$ sacct --jobs=job-id
 ```
 
 ...or your username...
 
 ```bash
-$ sacct --user=your-username
+$ sacct --user=username
 ```
 
 ...to pull up accounting information on jobs run at an earlier time.
@@ -159,7 +159,7 @@ To see a non-abbreviated version of sacct output, use the `--long`
 flag:
 
 ```bash
-$ sacct –-jobs=your_job-id –-starttime=YYYY-MM-DD --long
+$ sacct –--user=username –-starttime=YYYY-MM-DD --long
 ```
 
 #### Formatting `sacct` output
@@ -171,7 +171,7 @@ handled by a list of comma separated variables which specify output
 data:
 
 ```bash
-$ sacct --user=your_username --format=var_1,var_2, ... ,var_N
+$ sacct --user=username --format=var_1,var_2, ... ,var_N
 ```
 
 A chart of some variables is provided below:
@@ -204,7 +204,7 @@ job name, the number of nodes used in the job, the number of cpus, the
 maxrss, and the elapsed time. Your command would look like this:
 
 ```bash
-$ sacct --user=your_username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,maxrss,elapsed
+$ sacct --user=username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,maxrss,elapsed
 ```
 
 As another example, suppose you would like to pull up information on
@@ -214,7 +214,7 @@ Maximum RSS, CPU time, Average CPU time, and elapsed time. Your
 command would look like this:
 
 ```bash
-$ sacct --user=your_username –-starttime=2018-02-21 --format=jobid,jobname,qos,nnodes,ncpu,maxrss,cputime,avecpu,elapsed
+$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,qos,nnodes,ncpu,maxrss,cputime,avecpu,elapsed
 ```
 
 A full list of variables that specify data handled by sacct can be
@@ -223,12 +223,11 @@ sacct](https://slurm.schedmd.com/sacct.html).
 
 ### Controlling queued and running jobs using `scontrol`
 
-The `scontrol` command provides users extended control of their jobs
+The `scontrol` command provides extended control of your jobs
 run through Slurm. This includes actions like suspending a job,
-holding a job from running, or pulling extensive status information on
-jobs.
+holding a job from running.
 
-To suspend a job that is currently running on the system, we can use
+To suspend a job that is currently running on the system, you can use
 scontrol with the `suspend` command. This will stop a running job on
 its current step that can be resumed at a later time. We can suspend a
 job by typing the command:
@@ -246,38 +245,18 @@ $ scontrol resume job_id
 Slurm also provides a utility to hold jobs that are queued in the
 system. Holding a job will place the job in the lowest priority,
 effectively "holding" the job from being run. A job can only be held
-if it's waiting on the system to be run. We use the `hold` command to
+if it's waiting on the system to be run. To use the `hold` command to
 place a job into a held state:
 
 ```bash
 $ scontrol hold job_id
 ```
 
-We can then release a held job using the `release` command:
+You can then release a held job using the `release` command:
 
 ```bash
 $ scontrol release job_id
 ```
-
-`scontrol` can also provide information on jobs using the `show job`
-command. The information provided from this command is quite extensive
-and detailed, so be sure to either clear your terminal window, grep
-certain information from the command, or pipe the output to a separate
-text file:
-
-```bash
-# Output to console
-$ scontrol show job job_id
-
-# Streaming output to a textfile
-$ scontrol show job job_id > outputfile.txt
-
-# Piping output to Grep and find lines containing the word "Time"
-$ scontrol show job job_id | grep Time
-```
-
-For a full primer on grep and regular expressions, [visit GNU's page
-on Grep](https://www.gnu.org/software/grep/manual/grep.html)
 
 For more information on scontrol, [visit the Slurm page on
 scontrol](https://slurm.schedmd.com/scontrol.html)
