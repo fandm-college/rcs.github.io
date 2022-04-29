@@ -1,3 +1,7 @@
+---
+sort: 1
+---
+
 # Research Computing Overview
 
 This guide provides information and basic how-to guides related to Research Computing resources. 
