@@ -1,12 +1,10 @@
 # Research Computing Overview
-=============================
 
 This guide provides information and basic how-to guides related to Research Computing resources. 
 
 If you have any questions, please contact dorc@fandm.edu.
 
 ## Acknowledging Research Computing
-------------------------------
 
 Use of Franklin and Marshall Research Computing resources must be acknowledged in any and all publications.
 
@@ -17,7 +15,6 @@ Use of Franklin and Marshall Research Computing resources must be acknowledged i
   - "The authors acknowledge Research Computing at Franklin and Marshall College for providing computational resources and support that have contributed to the research results reported in this publication."
 
 ## Available resources
-------------------------------
 
 | **Compute system**   | **Hardware specs**  | **Description**         |
 |:-------------|:------|:------------------------| 
@@ -31,7 +28,6 @@ Use of Franklin and Marshall Research Computing resources must be acknowledged i
 
 
 ## Courses using Research Computing resources
-------------------------------
 
 Instructors who wish to lead a class using any of the Research Computing resources must contact us at dorc@fandm.edu before the class begins.  This is to ensure that adequate resources and support are available.  At a minimum, we will need the following information:  
 
