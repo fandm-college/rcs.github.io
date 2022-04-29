@@ -12,7 +12,7 @@ Once you have created your script, you can submit your job using `sbatch`.  For 
 ```bash
 $ sbatch neuron.job
 ```
-## Slurm directives
+## Slurm batch directives
 
 These directives specify resource requirements and other job information (e.g., job name). These directives must come after `#!/bin/bash` and before any commands are issued in the job script. Each directive contains a flag that requests a resource the job would need to complete execution. An sbatch directive always starts with `#SBATCH` and takes the general form:
 
