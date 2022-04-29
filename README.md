@@ -18,7 +18,7 @@ Use of Franklin and Marshall Research Computing resources must be acknowledged i
 
 | **Compute system**   | **Hardware specs**  | **Description**         |
 |:-------------|:------|:------------------------| 
-| rcs-scsn.fandm.edu    | 36 compute nodes| F&M research cluster |
+| rcs-scsn.fandm.edu    | {::nomarkdown}<ul><li>36 Compute nodes</li><li> 40 CPUs and 128GB memoery per node</ul>{:/}| F&M research cluster |
 | rcs-cuda.fandm.edu    | 28 CPUs; 1 GPU | GPU |
 | rcs-cuda1.fandm.edu    | 1 GPU | GPU |
 | rcs-sci.fandm.edu    | 1 GPU | GPU |
