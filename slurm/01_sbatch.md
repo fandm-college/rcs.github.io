@@ -170,6 +170,6 @@ The real power of Slurm is the ability to submit and run multiple jobs at once a
 
 The first thing to notice is the use of *srun* before the program calls.  This is a SLURM command to submit a single run.
 
-The second thing to notice is the use of */>* followed by a filename (e.g. */> sim.out*) when running our programs.  Notice too we did not include the *#SBATCH --output=*.  What is happening here is that each program is redirecting output to it's own file.  This makes it much easier to distinguish the output from the different programs.
+The second thing to notice is the use of *>* followed by a filename (e.g. *> sim.out*) when running our programs.  Notice too we did not include the *#SBATCH --output=*.  What is happening here is that each program is redirecting output to it's own file.  This makes it much easier to distinguish the output from the different programs.
 
-Finally each run uses *2/>&1 &*.  This does two things.  First, any errors will print to the same file used for output.  Second, the job will run as a background process.  This is important because otherwise the script would wait for the job to finish before submitting the next program to run.  The use of the *wait* command tells the system to wait for all the programs to finish running before finishing the job.
+Finally each run uses *2>&1 &*.  This does two things.  First, any errors will print to the same file used for output.  Second, the job will run as a background process.  This is important because otherwise the script would wait for the job to finish before submitting the next program to run.  The use of the *wait* command tells the system to wait for all the programs to finish running before finishing the job.
