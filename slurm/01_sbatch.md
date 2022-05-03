@@ -58,7 +58,7 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 
 **Output files**
 
-Some software packages output messages and errors directly to the terminal as they run.  The `output` directive specifies a file name where such messages will be written to instead of being logged to the terminal.  It **does not** specify the name of output file(s) which your particular may use to capture output for its calculations.  Those still need to be specified as you normally would when running the code.
+Some software packages output messages and errors directly to the terminal as they run.  The `output` directive specifies a file name where such messages will be written to instead of being logged to the terminal.  It **does not** specify the name of output file(s) which your particular program may use to capture output for its calculations.  Those still need to be specified as you normally would when running the code.
 
 For this directive we recommend using one of the following two forms depending on your specific curcumstances:
 - `output=myfilename_%j.out`  Here the `%j` will be replaced by the job-id Slurm generates automatically.  So if the job id is 439 then the output would go to `myfilename_439.job`.  This is useful to differentiate output files if you run the same job script over and over again.
@@ -87,7 +87,7 @@ In order to allow for equitable usage we have set the following limits for usage
 #SBATCH --job-name=neuron-test-job
 #SBATCH --output=neuron_%j.out
 
-# Turn on mail notification. There are five possible self-explaining values:
+# Turn on mail notification. There are five possible values:
 # NONE, BEGIN, END, FAIL, ALL (including all aforementioned)
 # For more values, check "man sbatch"
 #SBATCH --mail-type=END,FAIL
@@ -185,3 +185,41 @@ The first thing to notice is the use of *srun* before the program calls.  This i
 The second thing to notice is the use of *>* followed by a filename (e.g. *> sim.out*) when running our programs.  Notice too we did not include the *#SBATCH --output=*.  What is happening here is that each program is redirecting output to it's own file.  This makes it much easier to distinguish the output from the different programs.
 
 Finally each run uses *2>&1 &*.  This does two things.  First, any errors will print to the same file used for output.  Second, the job will run as a background process.  This is important because otherwise the script would wait for the job to finish before submitting the next program to run.  The use of the *wait* command tells the system to wait for all the programs to finish running before finishing the job.
+
+### Multiple similar jobs
+
+```bash
+#!/bin/bash
+
+#SBATCH --job-name=neuron-mpi-multi-job
+#SBATCH --nodes=1
+#SBATCH --ntasks=24
+#SBATCH --output=neuron_mpi_%A_%a.out
+#SBATCH --array=1-4
+
+module purge
+module load miniconda
+module load openmpi
+
+eval "$(conda shell.bash hook)"
+conda activate neuron
+
+date
+
+cd sim${SLURM_ARRAY_TASK_ID}
+nrnivmodl ./
+srun mpiexec -n 24 nrniv -mpi beginSimulation.hoc
+cd ..
+
+date                          
+```
+
+This example uses a powerful feature of Slurm called job arrays.  Some explanation here is needed
+
+1. `--array=1-4` specifies the fact that we will be using a job array, specifically one that will include four jobs whose sub-job-id will be the values 1-4.
+2. `${SLURM_ARRAY_TASK_ID}` is a Slurm specific variable that will take on the values specified by the `--array` directive.  Here we are using it to refer to 4 different directories, `sim1`, `sim2`, `sim3`, `sim4`
+3. The values for `--nodes` and `--ntasks` (and other directives that might apply to physical resources) apply to each individual sub-job.  This is important for example when doing parallel code runs using MPI.  Here each individual simulation is requesting 24 CPUs on a single node.
+
+In this simulation we have decided to differentiate the runs by placing the appropriate pieces in different directories but theare are many other ways you could setup your job.  More details and examples can be found in [Slurm's job array documentation](https://slurm.schedmd.com/job_array.html)
+
+### GPU jobs
