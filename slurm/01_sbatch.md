@@ -96,10 +96,7 @@ nrniv beginSimulation.hoc
 date
 ```
 
-This script will submit a single job that runs on a single CPU.  For such a simple case there really aren't many requirements when it comes to the Slurm directives.  It will email the user when the job completes (or if the job failed).  More information regarding software can be found in the following documentation:
-
-- Modules
-- Conda environments
+This script will submit a single job that runs on a single CPU.  For such a simple case there really aren't many requirements when it comes to the Slurm directives.  It will email the user when the job completes (or if the job failed).  More information regarding software can be found in the [software section](../software/README.md) of the documentation.
 
 ### Single parallel job using MPI
 
