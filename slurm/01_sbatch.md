@@ -40,14 +40,29 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 | Wall time          | The max amount of time your job will run for        | --time=wall time           |
 
 
-A few comments about these directives.
-- The directives for emailing are not currently implemented so do not include them (yet).  We will let you know when these are available.
-- Not all job scripts need all of these directives.  We recommend always specifying the job name, output file, and emailing (when it becomes available).  
-- If your job can be split up to run in paralell (e.g. using MPI), then you should specify at least the number of tasks and probably also tasks per node.  Each node currently has 40 CPUs so this value should not exced 40.  We also recommend you try to balance the number of tasks across nodes.  For example, if your job requires 96 total tasks, then you might set the tasks per node to 24 which will use 4 nodes.
-- If your job uses a GPU, then you must specify both the partition and generic resource directives as given exactly in the examples above.
-- For the output directive we recommend using one of the following two forms depending on your specific curcumstances:
-  - `output=myfilename_%j.out`  Here the *%j* will be replaced by the job-id Slurm generates automatically.  So if the job id is 439 then the output would go to myfile_439.job.  This is useful to differentiate output files if you run the same job over and over again.
-  - `output=myfilename_%A_%a.out`  Sometimes a job will have sub-jobs that get run (for example, running same simulation multiples times but each run uses different parameters).  In this case, *%A* refers to the job-id and *%a* refers to the sub-job-id.  For example if you ran 3 simulations, their sub-job-ids might be 1, 2, and 3.  Each one would have it's own output file, *myfile_439_1.out*, *myfile_439_2.out*, and *myfile_439_2.out*
+**A few comments about these directives.**
+
+- The directives for emailing are not currently available so do not include them (yet).  We will let you know when these are available.
+- Not all job scripts need all of these directives.  In most cases you will specify:
+  - job name
+  - output file (See below for more details on output file)
+  - email directives (when it becomes available).  
+
+- For jobs that can be split up to run in paralell (e.g. using MPI) you should specify:
+  - number of tasks
+  - tasks per node **Note:** This value should not exceed the number of CPUs for a resource otherwise the job may not run.  On the cluster this value is 40 CPUs per node. We also recommend you try to balance the number of tasks across nodes.  For example, if your job requires 96 total tasks, then you might set the tasks per node to 24 which will likely use 4 nodes.
+
+- For software that runs on the GPU you will need to specify
+  - partition
+  - generic resource (which will usually be in the form: `gpu:/<gpuModel>`
+
+**Output files**
+
+Some software packages output messages and errors directly to the terminal as they run.  The `output` directive specifies a file name where such messages will be written to instead of being logged to the terminal.  It **does not** specify the name of output file(s) which your particular may use to capture output for its calculations.  Those still need to be specified as you normally would when running the code.
+
+For this directive we recommend using one of the following two forms depending on your specific curcumstances:
+- `output=myfilename_%j.out`  Here the `%j` will be replaced by the job-id Slurm generates automatically.  So if the job id is 439 then the output would go to `myfilename_439.job`.  This is useful to differentiate output files if you run the same job script over and over again.
+- `output=myfilename_%A_%a.out`  Sometimes a job will have sub-jobs that get run (for example, running the same simulation multiples times but each run uses different parameters).  In this case, `%A` refers to the job-id and `%a` refers to the sub-job-id.  For example if you ran 3 simulations, their sub-job-ids might be 1, 2, and 3 producing output files, `myfilename_439_1.out`, `myfilename_439_2.out`, and `myfilename_439_2.out`
 
 A full list of commands [can be found in Slurm's documentation for sbatch.](https://slurm.schedmd.com/sbatch.html)
 
