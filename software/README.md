@@ -4,7 +4,11 @@ sort: 4
 
 # Software
 
-Because different scientific software packages sometimes require conficlifting dependencies, software is only available through two mechanisms, modules or Conda environments.
+Because different scientific software packages sometimes require conficlifting dependencies, software is only available through three mechanisms:
+
+1. Modules
+2. Conda environments
+3. Containers
 
 ## Modules
 
@@ -12,7 +16,7 @@ Environment Modules (or more commonly just modules) is a system for dynamically 
 
 This system makes it easy for everyone to find and load pre-built software into their environment to use with their programs, and allows multiple versions of the same software to coexist on the system together.
 
-If your software is available through a module, you just add the following to your Slurm job script:
+If your software is available through a module, you just add something like the following to your Slurm job script:
 
 ```bash
 # Load newest version of a module
@@ -21,11 +25,9 @@ module load moduleName
 # Load a specific version of a module
 module load moduleName/version
 ```
-.. tip::
+**Note:**  In your Slurm script you should always clear any loaded modules loading modules by using `module purge`
 
-In your Slurm script you should always clear any loaded modules before loading modules by using `module purge`
-
-## Listing modules
+### Listing modules
 
 You can list the available modules using `module avail`  The output will look something like:
 
@@ -57,6 +59,8 @@ In this output there are 7 different modules:
 
 The (D) besides a module specifies the default version that will be loaded using `module load moduleName`.  For example, `module load gcc` will load GCC version 8.5 while `module load gcc/8.3.1` loads version 8.3.1 of GCC
 
+## Conda environments
 
-# Conda environments
+Conda is an open-source package management system and environment management system that was orginally designed for Python software management.  We specifically use the Miniconda version of Conda for software management.
 
+## Containers
