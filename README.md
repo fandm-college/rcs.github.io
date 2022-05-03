@@ -5,7 +5,7 @@ If you have any questions, please contact:
 
 dorc@fandm.edu.
 
-The current list of available computing resources can be found [overview/README.md](here).
+The current list of available computing resources can be found [here](overview/README.md).
 
 ## Acknowledging Research Computing
 
@@ -25,7 +25,7 @@ Instructors who wish to lead a class using any of the Research Computing resourc
 - Software needed 
 - Typical computational work load (number of jobs or sessions, length, number of CPUs, etc)
 
-In addition to the [overview/README.md](compute resources provided here) we also offer the following resources:
+In addition to the [compute resources provided here](overview/README.md) we also offer the following resources:
 
 1. math.fandm.edu -- WeBWork server
 2. math-r.fandm.edu -- RStudio server 
