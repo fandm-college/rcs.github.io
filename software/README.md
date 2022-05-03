@@ -25,7 +25,7 @@ module load moduleName
 # Load a specific version of a module
 module load moduleName/version
 ```
-**Note:**  In your Slurm script you should always clear any loaded modules loading modules by using `module purge`
+**Note:**  In your Slurm script you should always clear any loaded modules before loading modules by using `module purge`
 
 ### Listing modules
 
