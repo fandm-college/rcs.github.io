@@ -72,7 +72,9 @@ In order to allow for equitable usage we have set the following limits for usage
 
 In order to understand how these limits impact jobs, it is important to understand the difference between an *account* and a *user* because some limits apply to *accounts* and some limits apply to the *user*.  An *account* is essentially a related group of individual users.  For example, there may be an account for a professor and all the students working with that professor.  If a professor is working on different projects with different students, each project might have its own account with its own possibly overlapping set of users.  
 
-All users belong to one or more accounts and you can specify which account to use in your Slurm script if you belong to more than one account.  If you have not been explicitly told otherwise, the following general limits apply
+All users belong to one or more accounts and you can specify which account to use in your Slurm script if you belong to more than one account.  If you have not been explicitly told otherwise, the following general limits apply.
+
+It is also important to understand that the idea of a job is the execution of a program and not the number of batch scripts.  A single batch script may contain many jobs (i.e. run many programs).
 
 **Note:** These limits may change in the future as needs and usage change.
 
