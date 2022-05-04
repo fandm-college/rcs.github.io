@@ -125,7 +125,7 @@ The first portion, `singularity exec /opt/apps/cont/presto.sif` runs the PRESTO 
 
 ### Listing containers
 
-There are different programs to run containers, but we use Singularity.  Unlike with modules and Conda there is no nice way of listing the available containers, but below is an up to date list
+Unlike with modules and Conda there is no nice way of listing the available containers, but below is an up to date list
 
 | **Software package** | **Container** |
 | :------------------- | :------------ |
