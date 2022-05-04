@@ -27,6 +27,6 @@ Instructors who wish to lead a class using any of the Research Computing resourc
 
 In addition to the [compute resources provided here](overview/README.md) we also offer the following resources:
 
-1. math.fandm.edu -- WeBWork server
-2. math-r.fandm.edu -- RStudio server 
-3. jupyterhub.fandm.edu -- Jupyter notebook server
+1. **math.fandm.edu** -- WeBWork server
+2. **math-r.fandm.edu** -- RStudio server 
+3. **jupyterhub.fandm.edu** -- Jupyter notebook server
