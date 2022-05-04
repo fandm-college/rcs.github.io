@@ -19,10 +19,10 @@ By default, Mac OS X comes with a program called `terminal` which can be used fo
 
 Once terminal is running you can connect to the system using the `ssh` command as in `ssh userName@system.fandm.edu`.  For example, `ssh aweaver29@rcs-sc.fandm.edu`
 
-In order to access graphical applications remotely you should install [XQuartz](https://www.xquartz.org/).  The ssh command then changes slightly with the addition of the  `-Y` flag as in `ssh -Y aweaver29@rcs-sc.fandm.edu`.
+In order to access graphical applications remotely you should install [XQuartz](https://www.xquartz.org/).  The ssh command then changes slightly with the addition of the `-Y` flag as in `ssh -Y aweaver29@rcs-sc.fandm.edu`.
 
 ## Windows setup
 
-For Windows machines we recommend installing MobaXterm Home Edition found [here](https://mobaxterm.mobatek.net/download.html).
+For Windows machines we recommend installing [MobaXterm Home Edition](https://mobaxterm.mobatek.net/download.html).
 
 Once you have installed MobaXterm....
