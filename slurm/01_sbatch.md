@@ -53,7 +53,7 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
   - tasks per node **Note:** This value should not exceed the number of CPUs for a resource otherwise the job may not run.  On the cluster this value is 40 CPUs per node. We also recommend you try to balance the number of tasks across nodes.  For example, if your job requires 96 total tasks, then you might set the tasks per node to 24 which will likely use 4 nodes.
 
 - For software that runs on the GPU you will need to specify
-  - partition
+  - partition (A **partition** is just a group of related resources like GPUs)
   - generic resource (which will usually be in the form: `gpu:/<gpuModel>`
 
 **Output files**
@@ -68,14 +68,22 @@ A full list of commands [can be found in Slurm's documentation for sbatch.](http
 
 ## Resource limits
 
-In order to allow for equitable usage we have set the following limits for usage for various resources.  Note: These limits may change in the future as needs and usage change.  If you have a compute job that exceeds these limits, then email us, dorc@fandm.edu, and we will try to work with you to reserve the appropriate resources.
+In order to allow for equitable usage we have set the following limits for usage for various resources.  Knowing these limits is important because if your if you exceed these limits then jobs will either not be submitted or not run.  If you have a compute job that must exceed these limits, then email us, dorc@fandm.edu, and we will try to work with you to reserve the appropriate resources.
+
+In order to understand how these limits impact jobs, it is important to understand the difference between an *account* and a *user* because some limits apply to *accounts* and some limits apply to the *user*.  An *account* is essentially a related group of individual users.  For example, there may be an account for a professor and all the students working with that professor.  If a professor is working on different projects with different students, each project might have its own account with its own possibly overlapping set of users.  
+
+All users belong to one or more accounts and you can specify which account to use in your Slurm script if you belong to more than one account.  If you have not been explicitly told otherwise, the following general limits apply
+
+**Note:** These limits may change in the future as needs and usage change.
 
 - /<ClusterName/> research cluster
-  - **Max number of CPUs: 360**
-  - **Max number of jobs submitted: 30**
+  - **Max number of CPUs: 360 per account**
+  - **Max number of jobs submitted: 30 per user**
 - GPUs
-  - **Max number of GPUs: 1**
-  - **Max number of GPU jobs submitted: 4**
+  - **Max number of GPUs: 1 per account**
+  - **Max number of GPU jobs submitted: 4 per account**
+- rcs-test.fandm.edu
+  - **Max wall time: 1 hour per user**
 
 ## Example submission scripts
 
@@ -223,3 +231,22 @@ This example uses a powerful feature of Slurm called job arrays.  Some explanati
 In this simulation we have decided to differentiate the runs by placing the appropriate pieces in different directories but theare are many other ways you could setup your job.  More details and examples can be found in [Slurm's job array documentation](https://slurm.schedmd.com/job_array.html)
 
 ### GPU jobs
+
+```bash
+#!/bin/bash                                                                                                                              
+#SBATCH --job-name=heimdall-test-job                                                                                                     
+#SBATCH --partition=gpus                                                                                                                 
+#SBATCH --gres=gpu:tesla_v100                                                                                                            
+#SBATCH --output=heimdall_test_%j.out                                                                                                    
+                                                                                                                                     
+module purge                                                                                                                             
+module load heimdall                                                                                                                                                                                                                                                            
+date
+                                                                                                                                     
+heimdall -f test.fil                                                                                                                     
+cat *.cand > beam01.cand                                                                                                                 
+                                                                                                                                        
+date         
+```
+
+In this example, the `heimdall` program runs on a GPU.  We have specified `#SBATCH --partition=gpus` to tell Slurm we need to use the set of nodes which have GPUs and we also specified `#SBATCH --gres=gpu:tesla_v100` to indicate the specific GPU to use.
