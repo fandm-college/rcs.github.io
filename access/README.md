@@ -23,6 +23,5 @@ In order to access graphical applications remotely you should install [XQuartz](
 
 ## Windows setup
 
-For Windows machines we recommend installing [MobaXterm Home Edition](https://mobaxterm.mobatek.net/download.html).
+For Windows machines we recommend installing PuTTY which can be found in the Microsoft Store (It's provided and updated by Simon Tatham).
 
-Once you have installed MobaXterm....
