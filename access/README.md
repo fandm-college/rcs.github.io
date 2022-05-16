@@ -15,7 +15,7 @@ Regardless of whether access is on or off campus you will need to setup your sys
 
 ## Mac OS X setup
 
-By default, Mac OS X comes with a program called `terminal` which can be used for connecting to systems.  Terminal is in the Utilities folder.  The Utilities folder can be quickly opened using the keyboard shortcut `Shift+Command+U`.  Once you click on the terminal program to open it, we suggest you save it to your toolbar for faster access in the furture.
+By default, Mac OS X comes with a program called `terminal` which can be used for connecting to systems.  The terminal program can be found in  Utilities folder which can be quickly opened using the keyboard shortcut `Shift+Command+U`.  Once you click on the terminal program to open it, we suggest you save it to your toolbar for faster access in the future.
 
 Once terminal is running you can connect to the system using the `ssh` command as in `ssh userName@system.fandm.edu`.  For example, `ssh aweaver29@rcs-sc.fandm.edu`
 
