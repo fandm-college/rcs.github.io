@@ -12,7 +12,7 @@ In order to acceess Resource Computing resources from off-campus you will have t
 
 If you are having trouble with these programs please contact the F&M helpdesk by calling them at 717-358-6789 or submitting a helpdesk ticket through heldesk.fandm.edu
 
-In addition, there is operating system-specific setup(detailed below) that you will need to in order to access our compute resources regardless of whether that access is on or off campus.
+In addition, there is operating system-specific setup(detailed below) that you will need in order to access our compute resources regardless of whether that access is on or off campus.
 
 ## Mac OS X setup
 
