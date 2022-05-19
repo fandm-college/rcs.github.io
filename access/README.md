@@ -66,7 +66,7 @@ Once installed you need to make some adjustments to your PuTTY configuration
 
 From time to time you may encounter issues connecting.  Often times the cause is one of the following:
 
-1. Not  connecting to VPN when off-campus
+1. Not connecting to VPN when off-campus
 2. Username is mistyped
 3. Server name is mistyped
 4. Password mistyped.  This one is trickier to determine but check things like Caps Lock, Num Lock, etc.
