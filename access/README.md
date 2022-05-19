@@ -2,7 +2,7 @@
 sort: 2
 ---
 
-# Accessing resources (Under construction)
+# Accessing resources
 
 In order to acceess Resource Computing resources from off-campus you will have to connect to F&M's VPN, GlobalProtect, and DUO (soon switching to RapidIdentity) for authentication. Instructions for installing these programs are provided below:
 
