@@ -14,11 +14,15 @@ If you are having trouble with these programs please contact the F&M helpdesk by
 
 In addition, there is operating system-specific setup(detailed below) that you will need in order to access our compute resources regardless of whether that access is on or off campus.
 
+At the end of this documentation we have provided some basic troubleshooting tips when experiencing issues connecting.
+
 ## Mac OS X setup
 
 By default, Mac OS X comes with a program called `terminal` which can be used for connecting to systems.  The terminal program can be found in  Utilities folder which can be quickly opened using the keyboard shortcut `Shift+Command+U`.  Once you click on the terminal program to open it, we suggest you save it to your toolbar for faster access in the future.
 
-Once terminal is running you connect using the `ssh` command as in `ssh userName@system.fandm.edu`.  For example, `ssh aweaver29@rcs-scsn.fandm.edu`  
+Once terminal is running you connect using the `ssh` command as in `ssh userName@system.fandm.edu`.  For example:
+
+`ssh aweaver29@rcs-scsn.fandm.edu`  
 
 **Please note:** 
 1. You may see a message about the authenticity of the host.  Type `yes` (the entire word) to continue connecting.
