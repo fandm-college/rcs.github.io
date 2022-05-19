@@ -4,6 +4,8 @@ sort: 1
 
 # Available resources
 
+## Compute Resources
+
 | **Compute system**        | **Hardware specs**  | **Description**         |
 |:--------------------------|:------|:------------------------| 
 | rcs-scsn.fandm.edu    | {::nomarkdown}<ul><li>36 Compute nodes</li><ul><li> 40 CPUs per node</li><li>128GB memory per node</ul><li>1 GPU node</li><ul><li>4 Tesla V100 GPUs w/ 32GB memory</li><li>40 CPUs</li><li>128GB memory</li></ul></ul>{:/} | F&M research cluster best for large number and/or long running jobs. |
@@ -14,4 +16,6 @@ sort: 1
 
 **Note:** Systems marked with * are currently unavailable/down
 
-\<Something about storage\>
+## Storage Resources
+
+**More information to come **
