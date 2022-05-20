@@ -15,7 +15,7 @@ The first command to know is `exit`.  This logs you off from the server.  Import
 
 There are two exceptions or ways around this situation.  The first is to use Slurm to submit compute jobs [See submitting jobs](../slurm/01_sbatch.md).  In this case Slurm will keep the job running after you logoff the server.  However, not every Research Computing resource uses Slurm.  
 
-That leads to the second exception, using tmux [See introduction to tmux]().
+That leads to the second exception, using tmux [See introduction to tmux](05_tmux.md).
 
 A second command to remember is `Ctrl+c`.  Every once in a while you may run a program and it may appear that nothing is happening other than the cursor is blinking but not at a prompt.  If this situation persists for a long time (several minutes or more) it may be that your program is stuck and not actually working.  If you press the `Ctrl+c` key combination it should stop your program, returning you to a prompt.  Sometimes you have to use this command two or three times in order to stop your program.
 
@@ -55,3 +55,45 @@ is the use of `tab` to help with command completion.  If you start to type a com
 (e.g., `his` then `tab`) the system will try to autocomplete the command, most likely with `history` in this case.  If there are multiple possible matches (e.g., `hi` might match `history` or `hipercdecode`) then nothing will display.  You must press `tab` a second time and it will list all matching commands.  With that information you can then type the rest of the command (or at least a few more letters to be more precise when using `tab` to autocomplete).
 
 ## htop
+
+The final command introduced in this section is `htop` This command produces a display similar to the one below and provides a lot of information about the processes running on the system.  You can 
+close the `htop` display by pressing `q`.
+
+Before explaining more about `htop` and it's usefulness, there is one caveat.  You can run `htop` on the cluster, however it will not be useful because it only provides information on `rcs-scsn.fandm.edu` 
+which is the server you log into to submit your compute jobs.  The jobs themselves run on different servers so you won't be able to use `htop` to see what is going on with them.
+
+![htop linux command](htop1.png)
+
+While `htop` displays a lot of information about processes running on a computer system, there are two important things you should focus on
+
+1. Information about CPUs (at the very top)
+  a. The number of CPUS (usually numbered 1 to *n*)
+  b. CPU usage
+2. Information about memory (Just under the CPUs labelled Mem)
+  a. The amount of memory available on the system
+  b. The amount of memory being used
+
+For example, in the `htop` output pictured above we can see
+
+1. There are 8 CPUs
+2. All CPUs are doing some sort of processing (indicated by the width of the green band) and
+   each CPU has about 60% utilization
+3. There is 32GB of memory on the system 
+4. Currently about 9.5 GB of memory is being used
+
+Or consider the `htop` display below:
+1. Once again there are 8 CPUs
+2. The CPUs are doing very little processing
+3. There is 8GB of memory on the system
+4. Currently about 2GB of memory is being used
+
+![second htop linux command](htop2.png)
+
+You can use htop to your advantage in two key ways:
+
+1. To see if your program requires a lot of CPU resources, memory resources, or both
+  a. Does the system you are trying to run on have those resources?
+  b. When running code on the cluster, the info from htop can help you make decisions regarding resources (e.g., CPUs) to request when submitting a job
+2. If you want to run some code on a system but you see that system is already very busy with other programs, you can try a different system
+
+   
