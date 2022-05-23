@@ -37,11 +37,11 @@ The command line uses the history file in some useful ways that you should becom
 
 As an example, consider this snippet of history:
 
-` 401 pwd
-  402 ls
-  403 python3 simulation.py config.txt
-  404 cd ../data/output
-  405 cat outfile.05292022.txt
+`401 pwd`
+`402 ls`
+`403 python3 simulation.py config.txt`
+`404 cd ../data/output`
+`405 cat outfile.05292022.txt`
 `
 1. Pressing up once will recall the last command `cat outfile.05292022.txt`.  Pressing up again will change the command to `cd ../data/output`
    This is very helpful especially when you need to edit a command before executing it
