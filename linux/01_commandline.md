@@ -94,8 +94,8 @@ Or consider the `htop` display below:
 You can use htop to your advantage in two key ways:
 
 1. To see if your program requires a lot of CPU resources, memory resources, or both
-  a. Does the system you are trying to run on have those resources?
-  b. When running code on the cluster, the info from htop can help you make decisions regarding resources (e.g., CPUs) to request when submitting a job
+  - Does the system you are trying to run on have those resources?
+  - When running code on the cluster, the info from htop can help you make decisions regarding resources (e.g., CPUs) to request when submitting a job
 2. If you want to run some code on a system but you see that system is already very busy with other programs, you can try a different system
 
    
