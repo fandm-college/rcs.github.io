@@ -69,14 +69,11 @@ which is the server you log into to submit your compute jobs.  The jobs themselv
 While `htop` displays a lot of information about processes running on a computer system, there are two important things you should focus on
 
 1. Information about CPUs (at the very top)
-
-  a. The number of CPUS (usually numbered 1 to *n*)
-  b. CPU usage
-  
+  - The number of CPUS (usually numbered 1 to *n*)
+  - CPU usage
 2. Information about memory (Just under the CPUs labelled Mem)
-
-  a. The amount of memory available on the system
-  b. The amount of memory being used
+  - The amount of memory available on the system
+  - The amount of memory being used
 
 For example, in the `htop` output pictured above we can see
 
