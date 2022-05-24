@@ -98,6 +98,7 @@ dept.txt    website
 user@mycomputer:~$ ls Documents
 resume.docx
 user@mycomputer:~$ 
+```
 
 In addition, there are a few options you can supply to the `ls` command which will output additional useful information.
 
