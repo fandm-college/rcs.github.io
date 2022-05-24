@@ -92,7 +92,7 @@ user@mycomputer:~$ ls
 Desktop         Music       snap        workflow.txt
 Documents       Pictures    sql
 Downloads       Public      Templates
-user@mycomputer:~$ ls \data\git_repos
+user@mycomputer:~$ ls /data/git_repos
 conky       mycode_repo
 dept.txt    website
 user@mycomputer:~$ ls Documents
