@@ -165,11 +165,11 @@ In addition, there are a few options you can supply to the `ls` command which wi
 
 
 - `-l`
-- `-a`
+- `-a` lists all contents of the directory including any hidden files
 - `-h`
 - `-S`
 - `-R` lists files in current directory as well as files in all subdirectories, organized by subdirectory
 
 ## Making a new directory
 
-## Moving and Copying directories/files
+## Moving and copying directories/files
