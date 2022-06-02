@@ -24,14 +24,14 @@ and `/bin/cheese/swiss` respectively.
 
 In general you might think of a directory's path as instructions on how you would walk to that directory.  In the case of absolute paths it
 is the directions for walking to a directory always starting from root.  Please note too that just typing a path does not navigate to a directory.
-There is a specific command for navigating to a directoy discussed in the [Directory navigation section](#directory-navigation) further below.  
-In this section of the tutorial we are discussing the idea of paths in a general way because they are used in conjunction with many different Linux commands.  
-They are also often used when running scientific software to specify things like where output should go.
+There is a specific command for navigating to a directoy discussed in the [Directory navigation section](#directory-navigation) further below.  In this 
+section of the tutorial we are discussing the idea of paths in a general way because they are used in conjunction with many different Linux commands.  They 
+are also often used when running scientific software to specify things like where output should go.
 
 There is a second way to specify the path of a directory known as **relative paths**. They are relative becuase 
 it is based on where you currently are in the tree.  For example, if you happened to be in the `/bin` directory (more on knowing where you are in a moment), 
-then we could refer to the *cheese* directory as the relative path `cheese`.  Notice there is no leading `/` because we are not starting from root.  
-Similarly (again assumming we are in the *bin* directory) the relative paths for the *cheese* subdirectories would be
+then we could refer to the *cheese* directory as the relative path `cheese`.  Notice there is no leading `/` because we are not starting from root.  Similarly 
+(again assumming we are in the *bin* directory) the relative paths for the *cheese* subdirectories would be
 `cheese/american`, `cheese/gouda`, and `cheese/swiss`.
 
 ### Which directory am I in?
@@ -42,11 +42,11 @@ For example if we happened to be in the *gouda* directory then `pwd` would print
 
 ###  Directory shortcuts
 
-There are a few characters that represent directory shortcuts which are helpful to keep in mind.  The first is the the tilde, `~`.  
-When you access the Linux command line, you are initially placed into some default directory.  
-In most (but not all) cases this directory's absolute  path is `/home/username` where *username* is your actual username.  
-This directory has a special name, called the **home directory** and `~` refers to the absolute path of your home directory.  
-So if auser is logged in `~` refers to `/home/auser` but if cnovak is logged in then it would refer to `/home/cnovak`.
+There are a few characters that represent directory shortcuts which are helpful to keep in mind.  The first is the the tilde, `~`.  When you access 
+the Linux command line, you are initially placed into some default directory.  In most (but not all) cases this directory's absolute  
+path is `/home/username` where *username* is your actual username.  This directory has a special name, called the **home directory** 
+and `~` refers to the absolute path of your home directory.  So if auser is logged in `~` refers to `/home/auser` but if cnovak is 
+logged in then it would refer to `/home/cnovak`.
 
 Two additional and related shortcuts are `.` and `..`.  The first refers to the directory you are currently in.  The second
 shortcut refers to the parent directory of the directory you are in.  For example, if you are in `/home/auser`, then
@@ -55,11 +55,10 @@ when referring to directories using relative paths.  If, for example, you were i
 you needed to do something with the /bin/cheese/gouda directory, you could do so with the following relative path:
 `../gouda`
 
-Finally, you can usually use tab to autocomplete a path.  
-If you begin to type a path (absolute or relative) and press tab, then Linux will try to automatically complete the path.
-If there is more than one possible completetion, then the first tab will not do anything but pressing tab a second time will 
-list all possible directory paths that may complete what you have typed so far.  You can then type additonal 
-characters to complete the path.
+Finally, you can usually use tab to autocomplete a path.  If you begin to type a path (absolute or relative) and 
+press tab, then Linux will try to automatically complete the path.  If there is more than one possible completetion, 
+then the first tab will not do anything but pressing tab a second time will  list all possible directory paths that 
+may complete what you have typed so far.  You can then type additonal characters to complete the path.
 
 ### Should I use relative or absolute paths?
 
@@ -74,8 +73,8 @@ and may evolve over time as you become more comfortable with the Linux command l
 ## Directory navigation
 
 The examples in this section will be based on the directory structure given in the picture below.  Please note
-that here we are making extensive use of `pwd` only to make clear which directory we are in after each command.
-Normally you would not use it as frequently as we are here.
+that here we are making extensive use of `pwd` only to make clear which directory we are in after each command.  Normally you 
+would not use it as frequently as we are here.
 
 
 The command to move from one directory to another is the `cd` command.  With no arguments this command
