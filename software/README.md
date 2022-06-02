@@ -2,9 +2,9 @@
 sort: 4
 ---
 
-# Software
+# Software on the cluster
 
-Because different scientific software packages sometimes require conficlifting dependencies, software is only available through three mechanisms:
+Because different scientific software packages sometimes require conflicting dependencies, software is only available through three mechanisms:
 
 1. Modules
 2. Conda environments

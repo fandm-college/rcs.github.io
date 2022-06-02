@@ -43,7 +43,7 @@ For example if we happened to be in the *gouda* directory then `pwd` would print
 ###  Directory shortcuts
 
 There are a few characters that represent directory shortcuts which are helpful to keep in mind.  The first is the the tilde, `~`.  When you access 
-the Linux command line, you are initially placed into some default directory.  In most (but not all) cases this directory's absolute  
+the Linux command line, you are initially placed into some default directory.  In most (but not all) cases this directory's absolute 
 path is `/home/username` where *username* is your actual username.  This directory has a special name, called the **home directory** 
 and `~` refers to the absolute path of your home directory.  So if auser is logged in `~` refers to `/home/auser` but if cnovak is 
 logged in then it would refer to `/home/cnovak`.
@@ -148,8 +148,8 @@ auser@mycomputer:~$ cd CS
 ## Listing directory contents
 
 The command to see the contents of a directory is `ls`.  By default it will list the contents of the directory
-you are currently in.  You can see the contents of other directories without navigating to them first if you 
-add a path to a directory after `ls` .  For example:
+you are currently in.  It will show you both the files and directories.  You can see the contents of other directories 
+without navigating to them first if you add a path to a directory after `ls` .  Here are some examples:
 
 ```bash
 auser@mycomputer:~$ pwd
