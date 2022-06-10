@@ -76,6 +76,7 @@ The examples in this section will be based on the directory structure given in t
 that here we are making extensive use of `pwd` only to make clear which directory we are in after each command.  Normally you 
 would not use it as frequently as we are here.
 
+![Linux directory structure for navigation example](filesystem2.jpg)
 
 The command to move from one directory to another is the `cd` command.  With no arguments this command
 will change you to your home directory regardless of which directory you are currently in.
@@ -149,7 +150,9 @@ auser@mycomputer:~$ cd CS
 
 The command to see the contents of a directory is `ls`.  By default it will list the contents of the directory
 you are currently in.  It will show you both the files and directories.  You can see the contents of other directories 
-without navigating to them first if you add a path to a directory after `ls` .  Here are some examples:
+without navigating to them first if you add the path of a directory after `ls` .  Here are some examples based again on the 
+directory structure from the previous section.  Here we see both the directories and the files (myfile.txt and README, respectively)
+in the different directories.
 
 ```bash
 auser@mycomputer:~$ pwd
@@ -161,20 +164,43 @@ proj1    proj2    proj3       README
 auser@mycomputer:~$ 
 ```
 
-In addition, there are a few options you can supply to the `ls` command which will output additional useful information.
+There are additional options you can supply to the `ls` command which will output display other useful information.  Multiple
+options can be used at once (as the example will show)
 
-
-- `-l` -->
+- `-l` --> lists additional details include file permissions, date last modified, etc
 - `-a` --> lists all contents of the directory including any hidden files.  In Linux, directories/files are considered hidden (i.e. not displayed by default) if their name begins with a period (e.g., .config, .cache)
-- `-h` -->
-- `-S` -->
+- `-h` --> lists information in human readable format (mostly related to file sizes)
+- `-lS` --> Displays files based on size from largest to smallest
 - `-R`  --> lists files in current directory as well as files in all subdirectories, organized by subdirectory
+
+## Where's my file or directory?
+
+Sometimes you will need to access a file or directory but you don't remember where it is.  That is where the `find` command comes in
+handy.
+`find`
 
 ## Making a new directory
 
+If you need to make a new directory, you can use the `mkdir`.  In its simplest form you would do `mkdir dirName`  replacing `dirName` with
+the actual name of the directory you wish to make.  This will make a new directory in the directory you are currently in.  For example,
+
+```bash
+auser@mycomputer:~$ ls
+CS101    CS102    Downloads   myfile.txt
+auser@mycomputer:~$ mkdir CS201
+auser@mycomputer:~$ ls
+CS101    CS102    CS201    Downloads   myfile.txt
+auser@mycomputer:~$ 
+```
+
+In this example we have created the directory `CS201` as a subdirectory of auser's home directory.
+
+
 `mkdir`
 
-## Moving and copying directories/files
+## Copying and moving directories/files
+
+There are separate commands for copying and moving.  We will begin with the copy command which is `cp`.
 
 `mv`
 
