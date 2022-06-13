@@ -24,14 +24,10 @@ and `/bin/cheese/swiss` respectively.
 
 In general you might think of a directory's path as instructions on how you would walk to that directory.  In the case of absolute paths it
 is the directions for walking to a directory always starting from root.  Please note too that just typing a path does not navigate to a directory.
-There is a specific command for navigating to a directoy discussed in the [Directory navigation section](#directory-navigation) further below.  In this 
-section of the tutorial we are discussing the idea of paths in a general way because they are used in conjunction with many different Linux commands.  They 
-are also often used when running scientific software to specify things like where output should go.
+There is a specific command for navigating to a directoy discussed in the [Directory navigation section](#directory-navigation) further below.  In this section of the tutorial we are discussing the idea of paths in a general way because they are used in conjunction with many different Linux commands.  They are also often used when running scientific software to specify things like where output should go.
 
 There is a second way to specify the path of a directory known as **relative paths**. They are relative becuase 
-it is based on where you currently are in the tree.  For example, if you happened to be in the `/bin` directory (more on knowing where you are in a moment), 
-then we could refer to the *cheese* directory as the relative path `cheese`.  Notice there is no leading `/` because we are not starting from root.  Similarly 
-(again assumming we are in the *bin* directory) the relative paths for the *cheese* subdirectories would be
+it is based on where you currently are in the tree.  For example, if you happened to be in the `/bin` directory (more on knowing where you are in a moment), then we could refer to the *cheese* directory as the relative path `cheese`.  Notice there is no leading `/` because we are not starting from root.  Similarly (again assumming we are in the *bin* directory) the relative paths for the *cheese* subdirectories would be
 `cheese/american`, `cheese/gouda`, and `cheese/swiss`.
 
 ### Which directory am I in?
@@ -177,12 +173,12 @@ options can be used at once (as the example will show)
 
 Sometimes you will need to access a file or directory but you don't remember where it is.  That is where the `find` command comes in
 handy.
-`find`
 
 ## Making a new directory
 
 If you need to make a new directory, you can use the `mkdir`.  In its simplest form you would do `mkdir dirName`  replacing `dirName` with
 the actual name of the directory you wish to make.  This will make a new directory in the directory you are currently in.  For example,
+to create the directory `CS201` as a subdirectory of auser's home directory you would do:
 
 ```bash
 auser@mycomputer:~$ ls
@@ -193,10 +189,10 @@ CS101    CS102    CS201    Downloads   myfile.txt
 auser@mycomputer:~$ 
 ```
 
-In this example we have created the directory `CS201` as a subdirectory of auser's home directory.
-
-
-`mkdir`
+If you wish to make a new directory such as `/data/proj4/code/testcode` but some of the intermediate directories do not already exist, then you 
+should use the `-p` option because mkdir does not create them by default. Based on our example further above, neither the `proj4` nor 
+the `proj4/code` directories exist.  By adding the `-p` as in `mkdir -p /data/proj4/code/testcode`, then any missing directories will also be 
+created.
 
 ## Copying and moving directories/files
 
