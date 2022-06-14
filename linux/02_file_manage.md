@@ -51,7 +51,7 @@ when referring to directories using relative paths.  If, for example, you were i
 you needed to do something with the /bin/cheese/gouda directory, you could do so with the following relative path:
 `../gouda`
 
-Finally, you can usually use tab to autocomplete a path.  If you begin to type a path (absolute or relative) and 
+Finally, you can usually use `tab` to autocomplete a path.  If you begin to type a path (absolute or relative) and 
 press tab, then Linux will try to automatically complete the path.  If there is more than one possible completetion, 
 then the first tab will not do anything but pressing tab a second time will  list all possible directory paths that 
 may complete what you have typed so far.  You can then type additonal characters to complete the path.
@@ -105,10 +105,9 @@ auser@mycomputer:/data/proj1/images$ pwd
 /data/proj1/images
 ```
 
-The first few examples here use relative paths and in some cases some of the directory shortcuts mentioned in the previous
-section to navigate to different directories within auser's home directory.  The last example uses an absolute path
-to navigate to the images directory which is in a much different (i.e. far away) branch of the directory tree
-from where we were (/home/auser/CS101/HW2).
+The first few examples here use relative paths/directory shortcuts mentioned previously to navigate to different 
+directories within auser's home directory.  The last example uses an absolute path to navigate to the `images` 
+directory which is in a much different (i.e. far away) branch of the directory tree from where we were (`/home/auser/CS101/HW2`).
 
 There is one additional shortcut that can be quite useful, especially in situations where you may need to navigate back and forth
 between directories which are far away from each other in the directory tree (as in our last example).  Using `cd -` will navigate
@@ -128,25 +127,28 @@ auser@mycomputer:/data/proj1/images$ pwd
 /data/proj1/images
 ```
 
-The next example demonstrates the use of Tab for autocompletion
+The next example demonstrates the use of `tab` for autocompletion.
 
 ```bash
 auser@mycomputer:~$ pwd
 /home/auser
-auser@mycomputer:~$ cd Dow <Tab>
+auser@mycomputer:~$ cd Dow<tab>
 auser@mycomputer:~/Downloads$ pwd
 /home/auser/Downloads
 auser@mycomputer:~/Downloads$ cd
-auser@mycomputer:~$ cd CS <Tab><Tab>
+auser@mycomputer:~$ cd CS<tab><tab>
 CS101/ CS102/
 auser@mycomputer:~$ cd CS
 ```
+In the first case, pressing `tab` once will autocomplete because there is only one possible completion, `Downloads`.  In the second 
+case, pressing `tab` just once will not autocomplete because there is more than one possible completion.  Pressing `tab` a 
+second time lists the possibilities.  From there you can type a few more letter and try `tab` again, or just type the whole thing.
 
 ## Listing directory contents
 
 The command to see the contents of a directory is `ls`.  By default it will list the contents of the directory
 you are currently in.  It will show you both the files and directories.  You can see the contents of other directories 
-without navigating to them first if you add the path of a directory after `ls` .  Here are some examples based again on the 
+*without navigating to them first* if you add the path of a directory after `ls` .  Here are some examples based again on the 
 directory structure from the previous section.  Here we see both the directories and the files (myfile.txt and README, respectively)
 in the different directories.
 
@@ -160,25 +162,28 @@ proj1    proj2    proj3       README
 auser@mycomputer:~$ 
 ```
 
-There are additional options you can supply to the `ls` command which will output display other useful information.  Multiple
-options can be used at once (as the example will show)
+There are additional options you can supply to the `ls` command which will display other useful information.  This is not a complete
+list of options, but are some of the more commonly used ones.  Multiple options can be used at once (as the example will show).
 
-- `-l` --> lists additional details include file permissions, date last modified, etc
-- `-a` --> lists all contents of the directory including any hidden files.  In Linux, directories/files are considered hidden (i.e. not displayed by default) if their name begins with a period (e.g., .config, .cache)
-- `-h` --> lists information in human readable format (mostly related to file sizes)
-- `-lS` --> Displays files based on size from largest to smallest
-- `-R`  --> lists files in current directory as well as files in all subdirectories, organized by subdirectory
+| **Option**   | **Meaning**                     |
+|:-------------|:--------------------------------| 
+| `l`          | Displays additional details such as file permissions, date last modified, etc. |
+| `a`          | Displays entire directory contents including any hidden directories/files.  
+                 In Linux directories/files are hidden (not displayed by default) if their name begins with a period (e.g., .config, .cache) |
+| `h`          | Displays directory/file sizes in a more human readable format |
+| `S`          | Use with the `l` flag to display directories/files based on size from largest to smallest |
+| `R`          | Displays the contents of the current directory as well as the contents of subdirectories, organized by subdirectory |
 
 ## Where's my file or directory?
 
-Sometimes you will need to access a file or directory but you don't remember where it is.  That is where the `find` command comes in
-handy.
+Sometimes you will need to access a file or directory but you don't remember where it is or perhaps what it was called exactly.  That 
+is where the `find` command comes in handy.
 
 ## Making a new directory
 
 If you need to make a new directory, you can use the `mkdir`.  In its simplest form you would do `mkdir dirName`  replacing `dirName` with
 the actual name of the directory you wish to make.  This will make a new directory in the directory you are currently in.  For example,
-to create the directory `CS201` as a subdirectory of auser's home directory you would do:
+to create the directory `CS201` as a subdirectory of auser's home directory you would type `mkdir CS201`:
 
 ```bash
 auser@mycomputer:~$ ls
@@ -190,7 +195,7 @@ auser@mycomputer:~$
 ```
 
 If you wish to make a new directory such as `/data/proj4/code/testcode` but some of the intermediate directories do not already exist, then you 
-should use the `-p` option because mkdir does not create them by default. Based on our example further above, neither the `proj4` nor 
+should use the `-p` option because `mkdir` does not create them by default. Based on our example further above, neither the `proj4` nor 
 the `proj4/code` directories exist.  By adding the `-p` as in `mkdir -p /data/proj4/code/testcode`, then any missing directories will also be 
 created.
 
