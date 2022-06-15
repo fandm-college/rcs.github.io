@@ -36,17 +36,18 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 | Number of tasks    | The ***total*** number of processes needed to run the job | --ntasks=processes   | --ntasks=96                |
 | Tasks per node     | The number of processes you wish to assign to each node | --ntasks-per-node=processes | --ntasks-per-node=24   |
 | Partition          | Specify a partition. Currently only needed if using a GPU | --partition=partition | --partition=gpus         |
-| Generic resource | Specify a GRES. Currently only needed if using a GPU | --gres=gres              | --gres=gpu:tesla_v100     |
+| Generic resource   | Specify a GRES. Currently only needed if using a GPU | --gres=gres:#              | --gres=gpu:1     |
 | Wall time          | The max amount of time your job will run for        | --time=wall time           |
 
 
 **A few comments about these directives.**
 
-- The directives for emailing are not currently available so do not include them (yet).  We will let you know when these are available.
+- The directives for emailing are not currently available so do not include them (yet).  We will let users know when these are available.
 - Not all job scripts need all of these directives.  In most cases you will specify:
   - job name
   - output file (See below for more details on output file)
-  - email directives (when it becomes available).  
+  - email directives (when it becomes available).
+  - wall time
 
 - For jobs that can be split up to run in paralell (e.g. using MPI) you should specify:
   - number of tasks
@@ -54,7 +55,8 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 
 - For software that runs on the GPU you will need to specify
   - partition (A **partition** is just a group of related resources like GPUs)
-  - generic resource (which will usually be in the form: `gpu:/<gpuModel>`
+  - generic resource (which will usually be in the form: `gres=gpu:1`  The number after the colon is the number of GPUs needed.  In almost all
+    cases the value should be 1
 
 **Output files**
 
@@ -68,24 +70,8 @@ A full list of commands [can be found in Slurm's documentation for sbatch.](http
 
 ## Resource limits
 
-In order to allow for equitable usage we have set the following limits for usage for various resources.  Knowing these limits is important because if your if you exceed these limits then jobs will either not be submitted or not run.  If you have a compute job that must exceed these limits, then email us, dorc@fandm.edu, and we will try to work with you to reserve the appropriate resources.
-
-In order to understand how these limits impact jobs, it is important to understand the difference between an *account* and a *user* because some limits apply to *accounts* and some limits apply to the *user*.  An *account* is essentially a related group of individual users.  For example, there may be an account for a professor and all the students working with that professor.  If a professor is working on different projects with different students, each project might have its own account with its own possibly overlapping set of users.  
-
-All users belong to one or more accounts and you can specify which account to use in your Slurm script if you belong to more than one account.  If you have not been explicitly told otherwise, the following general limits apply.
-
-It is also important to understand that the idea of a job is the execution of a program and not the number of batch scripts.  A single batch script may contain many jobs (i.e. run many programs).
-
-**Note:** These limits may change in the future as needs and usage change.
-
-- /<ClusterName/> research cluster
-  - **Max number of CPUs: 360 per account**
-  - **Max number of jobs submitted: 30 per user**
-- GPUs
-  - **Max number of GPUs: 1 per account**
-  - **Max number of GPU jobs submitted: 4 per account**
-- rcs-test.fandm.edu
-  - **Max wall time: 1 hour per user**
+Currently there are no limits in place when it comes to running jobs on the cluster.  However, if an individual user begins to "hog" the cluster,
+then we may enforce limits for that indivdual user.  Further, general limits may be introdcuced in the future as needs and usage change.
 
 ## Example submission scripts
 
@@ -238,7 +224,7 @@ In this simulation we have decided to differentiate the runs by placing the appr
 #!/bin/bash                                                                                                                              
 #SBATCH --job-name=heimdall-test-job                                                                                                     
 #SBATCH --partition=gpus                                                                                                                 
-#SBATCH --gres=gpu:tesla_v100                                                                                                            
+#SBATCH --gres=gpu:1                                                                                                          
 #SBATCH --output=heimdall_test_%j.out                                                                                                    
                                                                                                                                      
 module purge                                                                                                                             
