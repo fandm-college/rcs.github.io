@@ -59,4 +59,3 @@ paths.  Otherwise you will likely have to use an absolute path.  What counts as 
 and may evolve over time as you become more comfortable with the Linux command line and directory structure.
 
 ## Permissions
-Just because there
