@@ -75,6 +75,9 @@ then we may enforce limits for that indivdual user.  Further, general limits may
 
 ## Example submission scripts
 
+One thing to note is that these examples are relatively simple.  Often times your submission will include many jobs to be run.  In addition, some pieces of software (notably Miniconda and Gaussian) require some
+additional steps in order to use them.  These steps and more general information about the software loaded on the cluster can be found in the [software section](../software/README.md) of the documentation.
+
 ### Single job, Single CPU
 ```bash
 #!/bin/bash
@@ -107,7 +110,7 @@ nrniv beginSimulation.hoc
 date
 ```
 
-This script will submit a single job that runs on a single CPU.  For such a simple case there really aren't many requirements when it comes to the Slurm directives.  It will email the user when the job completes (or if the job failed).  More information regarding software can be found in the [software section](../software/README.md) of the documentation.
+This script will submit a single job that runs on a single CPU.  For such a simple case there really aren't many requirements when it comes to the Slurm directives.  It will email the user when the job completes (or if the job failed).  
 
 ### Single parallel job using MPI
 
