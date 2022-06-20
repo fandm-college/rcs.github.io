@@ -138,7 +138,7 @@ cd neuron_mpi
 date
 
 nrnivmodl ./
-mpiexec -n 96 nrniv -mpi beginSimulation.hoc
+srun mpiexec -n 96 nrniv -mpi beginSimulation.hoc
 
 date
 ```
@@ -234,7 +234,7 @@ module purge
 module load heimdall                                                                                                                                                                                                                                                            
 date
                                                                                                                                      
-heimdall -f test.fil                                                                                                                     
+srun heimdall -f test.fil                                                                                                                     
 cat *.cand > beam01.cand                                                                                                                 
                                                                                                                                         
 date         
