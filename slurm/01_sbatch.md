@@ -231,7 +231,8 @@ In this simulation we have decided to differentiate the runs by placing the appr
 #SBATCH --output=heimdall_test_%j.out                                                                                                    
                                                                                                                                      
 module purge                                                                                                                             
-module load heimdall                                                                                                                                                                                                                                                            
+module load heimdall                                                                                                     
+
 date
                                                                                                                                      
 srun heimdall -f test.fil                                                                                                                     
@@ -240,4 +241,44 @@ cat *.cand > beam01.cand
 date         
 ```
 
-In this example, the `heimdall` program runs on a GPU.  We have specified `#SBATCH --partition=gpus` to tell Slurm we need to use the set of nodes which have GPUs and we also specified `#SBATCH --gres=gpu:tesla_v100` to indicate the specific GPU to use.
+In this example, the `heimdall` program runs on a GPU.  We have specified `#SBATCH --partition=gpus` to tell Slurm we need to use the set of nodes which have GPUs and we also specified `#SBATCH --gres=gpu:1` to indicate a single GPU to use.
+
+If you wish to use more than one GPU, the batch script is slightly more complicated.  Below is an example that runs two instances of a program called heimdall on two different GPUS
+
+```bash
+#SBATCH --job-name=heimdall-test-job
+#SBATCH --partition=gpus
+#SBATCH --gres=gpu:2
+#SBATCH --gpus-per-task=1
+#SBATCH --cpus-per-task=2
+#SBATCH --ntasks=2
+#SBATCH --output=heimdall_test_%j.out
+
+module purge
+module load heimdall
+
+date
+
+srun -n 1 heimdall -f test.fil & 
+srun -n 1 heimdall -f test.fil &
+
+wait
+
+date
+```
+
+As in the above example, we are using the GPU partition but instead of 1 GPU we are requesting 2 (*--gres=gpu:2).  Most important in this example are the lines
+
+#SBATCH --gpus-per-task=1
+
+#SBATCH --cpus-per-task=2
+
+#SBATCH --ntasks=2
+
+The first line indicates that we want 1 gpu per task.  In most (but not all) cases, a program that uses GPUs will only be able to use a single GPU at a time.
+
+The second line says we need two CPUs per task.  In this example, two is an arbitrary value.  It could be 1 or some other small number.  The important part is that you do specify the number of CPUs per task and not make it large.  By default (that is if left unspecified) the default CPUs per task is all of the CPUs on a node.  If you don't specify CPUs per task the first GPU job will start to execute, and be given all the CPUs meaning the second GPU job can't execute becuase it's waiting on CPUs even though the GPU is available.
+
+Further, If the CPUs per task combined with the number of tasks is greater than the number of CPUs on a node (40 in this case) then the job won't run correctly.  For example if the CPUs per task in this example was 22 instead of just 2, then once again the first GPU job will start to execute, and be given 22  CPUs leaving only 18 available.  The second GPU job can't execute becuase it's waiting on CPUs even though the GPU is available.
+
+The last important line says we have a total of two tasks.  Here we use two srun with the *&* to start each individual heimdall run in the background (meaning the second srun command does not wait for the first one to finish before it starts).  The use of *wait* then waits for both heimdall jobs to complete before moving on. 
