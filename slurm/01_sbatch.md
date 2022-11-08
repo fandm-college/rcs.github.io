@@ -84,6 +84,9 @@ Instead if you were to also set the --nodes=2 (or ntasks-per-node=16) for exampl
 In terms of choosing an actual value for the number of tasks, this will depend a great deal on your exact circumstances especially as it relates to how your software runs.  Some software is designed to essentially
 only run using a single CPU.  In such cases you may want to have a job that runs multiple instances of the program each one with different inputs and so ntasks=12 or less (depending on the exact number) is likely to be sufficient.
 
+This is also a case where specifically setting either --nodes or --ntasks-per-node option may not be useful/desired.  If for example, your are running only 3 or 4 instances of your software then letting the scheduler find a few nodes with
+one or two idles CPUs to use may be better in terms of getting the job through the queue faster because there are always likely to be at least a few nodes with a small number of CPUs not already dedicated for other jobs.
+ 
 On the other hand, if your software can perform calculations in parallel (using perhaps MPI or OpenMPI), then setting ntasks=64 or perhaps larger will be the way to go.  One thing to note about 
 software that runs in parallel is that there is usually a point where using more CPUs doesn't actually speed things up anymore.  In fact this can often lead to CPUs sitting idle doing resulting again in less 
 than optimal utilization.  Sometimes the software may give guidelines where this point is but usually not.
