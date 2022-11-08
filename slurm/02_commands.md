@@ -177,7 +177,6 @@ A chart of some variables is provided below:
 Variable    | Description
 ------------|------------
 account     | Account the job ran under.
-avecpu      | Average CPU time of all tasks in job.
 averss      | Average resident set size of all tasks in the job.
 cputime     | Formatted (Elapsed time * CPU) count used by a job or step.
 elapsed     | Jobs elapsed time formated as DD-HH:MM:SS.
@@ -191,7 +190,6 @@ ncpus       | Amount of allocated CPUs.
 nnodes      | The number of nodes used in a job.
 ntasks      | Number of tasks in a job.
 priority    | Slurm priority.
-qos         | Quality of service.
 reqcpu      | Required number of CPUs
 reqmem      | Required amount of memory for a job.
 user        | Username of the person who ran the job.
@@ -207,12 +205,12 @@ $ sacct --user=username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,max
 
 As another example, suppose you would like to pull up information on
 jobs that were run on February 21, 2018. You would like information on
-job ID, job name, QoS, Number of Nodes used, Number of CPUs used,
+job ID, job name, Number of Nodes used, Number of CPUs used,
 Maximum RSS, CPU time, Average CPU time, and elapsed time. Your
 command would look like this:
 
 ```bash
-$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,qos,nnodes,ncpu,maxrss,cputime,avecpu,elapsed
+$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,nnodes,ncpu,maxrss,cputime,avecpu,elapsed
 ```
 
 A full list of variables that specify data handled by sacct can be

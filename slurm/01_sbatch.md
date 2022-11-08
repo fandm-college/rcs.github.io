@@ -1,6 +1,6 @@
 # Submitting jobs
 
-Typically you will create a text file (refered to here as a job script) to specify the details of your job.  A job script is set of Linux commands paired with a set of resource requirements that can be passed to the Slurm job scheduler. Slurm will then generate a job according to the parameters set in the job script. Any commands that are included with the job script will be run within the job.  A job script will usually consist of four components:
+Typically you will create a text file (refered to here as a job script) to specify the details of your job.  A job script is set of Linux commands paired with a set of resource requirements that can be passed to the Slurm job scheduler. Slurm will then run job according to the parameters set in the job script when the needed resources become available (more on that in Resource Recommendation ). Any commands that are included with the job script will be run within the job.  A job script will usually consist of four components:
 
 - The first line must be `#!/bin/bash`
 - Job resources and directives
@@ -14,7 +14,7 @@ $ sbatch neuron.job
 ```
 ## Slurm batch directives
 
-These directives specify resource requirements and other job information (e.g., job name). These directives must come after `#!/bin/bash` and before any commands are issued in the job script. Each directive contains a flag that requests a resource the job would need to complete execution. An sbatch directive always starts with `#SBATCH` and takes the general form:
+These directives specify resource requirements and other job information (e.g., job name). These directives must come after `#!/bin/bash` and before any commands are issued in the job script. Each directive contains a flag that requests a resource the job needs to run. An sbatch directive always starts with `#SBATCH` and takes the general form:
 
 ```bash
 #SBATCH --<flag>=<value>
@@ -33,25 +33,21 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 | Sending email      | Receive email at beginning or end of job completion | --mail-type=type           | --mail-type=END, FAIL    |
 | Email address      | Email address to receive the email                  | --mail-user=user           | --mail-user=auser@fadm.edu |
 | Number of nodes    | The number of nodes needed to run the job           | --nodes=nodes              | --nodes=4                  |
-| Number of tasks    | The ***total*** number of processes needed to run the job | --ntasks=processes   | --ntasks=96                |
+| Number of tasks    | The ***total*** number of CPUs needed to run the job | --ntasks=processes   | --ntasks=96                |
 | Tasks per node     | The number of processes you wish to assign to each node | --ntasks-per-node=processes | --ntasks-per-node=24   |
 | Partition          | Specify a partition. Currently only needed if using a GPU | --partition=partition | --partition=gpus         |
 | Generic resource   | Specify a GRES. Currently only needed if using a GPU | --gres=gres:#              | --gres=gpu:1     |
 | Wall time          | The max amount of time your job will run for        | --time=wall time           |
 
-
 **A few comments about these directives.**
 
-- The directives for emailing are not currently available so do not include them (yet).  We will let users know when these are available.
+- The directives for emailing are not currently setup so do not include them (yet).  We will let users know when these are working.
 - Not all job scripts need all of these directives.  In most cases you will specify:
   - job name
   - output file (See below for more details on output file)
-  - email directives (when it becomes available).
-  - wall time
-
-- For jobs that can be split up to run in paralell (e.g. using MPI) you should specify:
-  - number of tasks
-  - tasks per node **Note:** This value should not exceed the number of CPUs for a resource otherwise the job may not run.  On the cluster this value is 40 CPUs per node. We also recommend you try to balance the number of tasks across nodes.  For example, if your job requires 96 total tasks, then you might set the tasks per node to 24 which will likely use 4 nodes.
+  - Number of tasks (--ntasks=)
+  - Number of nodes (--nodes=) OR Tasks per node (--ntasks-per-node)
+  - email directives
 
 - For software that runs on the GPU you will need to specify
   - partition (A **partition** is just a group of related resources like GPUs)
@@ -60,23 +56,61 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 
 **Output files**
 
-Some software packages output messages and errors directly to the terminal as they run.  The `output` directive specifies a file name where such messages will be written to instead of being logged to the terminal.  It **does not** specify the name of output file(s) which your particular program may use to capture output for its calculations.  Those still need to be specified as you normally would when running the code.
+Some software packages usually output messages and errors directly to the terminal as they run.  The `output` directive specifies a file name where such messages will be written to instead of being logged to the terminal.  It **does not** specify the name of output file(s) which your particular program may use to capture output for its calculations.  Those still need to be specified as you normally would when running the code.
 
 For this directive we recommend using one of the following two forms depending on your specific curcumstances:
 - `output=myfilename_%j.out`  Here the `%j` will be replaced by the job-id Slurm generates automatically.  So if the job id is 439 then the output would go to `myfilename_439.job`.  This is useful to differentiate output files if you run the same job script over and over again.
 - `output=myfilename_%A_%a.out`  Sometimes a job will have sub-jobs that get run (for example, running the same simulation multiples times but each run uses different parameters).  In this case, `%A` refers to the job-id and `%a` refers to the sub-job-id.  For example if you ran 3 simulations, their sub-job-ids might be 1, 2, and 3 producing output files, `myfilename_439_1.out`, `myfilename_439_2.out`, and `myfilename_439_2.out`
 
-A full list of commands [can be found in Slurm's documentation for sbatch.](https://slurm.schedmd.com/sbatch.html)
+A full list of directives and other options [can be found in Slurm's documentation for sbatch.](https://slurm.schedmd.com/sbatch.html)
 
-## Resource limits
+## Recommendations/Tips
 
-Currently there are no limits in place when it comes to running jobs on the cluster.  However, if an individual user begins to "hog" the cluster,
-then we may enforce limits for that indivdual user.  Further, general limits may be introdcuced in the future as needs and usage change.
+It is important to have a basic understanding of how the job scheduler chooses  when to run a certain job.  It is not in first-in first-out manner, and so just because there may be many jobs ahead of your newly submitted job, it doesn't necessarily mean all of the jobs will run before yours gets to run.  Instead, the scheduler chooses jobs based on several factors.  These factors include, but are not limited to
+
+- Availability of necessary resources
+- How long a job has been in the queue waiting to run
+- How many jobs an individual user has been runing and for how long
+
+At a minimum your job script should specify the number of tasks.  If the number of tasks is greater than 20 then we strongly recommend also using the --nodes  or --ntasks-per-node directive to use more than one node.  This has to do mainly with trying to use resources effectively.  Consider this example.  If a job requires 32 CPUs and does not set say the --nodes option, the job scheduler will first try to run it on a single node (potentially leaving 8 CPUs unused).  If that does not work, then the scheduler will try to see if there are multiple nodes with enough CPUs available to equal 32.  If there are a lot of jobs running it may be a while before either scenario is available.  On top of that, if the scheduler has many jobs where it has to try to find multiple nodes with enough CPUs to run a job then it can become overwhelemed and start holding jobs indefinitely.
+
+Instead if you were to also set the --nodes=2 (or ntasks-per-node=16) for example, then
+
+1. This makes the scheduler's job a little easier because it doesn't have to do as much work trying to find enough CPUs across multiple nodes.  It knows to wait for two nodes with 16 CPUs
+2. It allows for better utilization of the cluster.  This is the more important part.  In our example we would have one node with 8 CPUs sitting idle doing nothing until either a single job needing
+   8 CPUs comes along or enough CPUs on other nodes become available to run some other job.  Instead, we now have more CPUs available on two nodes for other jobs.  This not only gives more flexibilty
+   for other jobs to be running (meaning jobs likely wait for a shorter period in the job queue) but will also likely result in fewer CPUs sitting idle.
+
+In terms of choosing an actual value for the number of tasks, this will depend a great deal on your exact circumstances especially as it relates to how your software runs.  Some software is designed to essentially
+only run using a single CPU.  In such cases you may want to have a job that runs multiple instances of the program each one with different inputs and so ntasks=12 or less (depending on the exact number) is likely to be sufficient.
+
+On the other hand, if your software can perform calculations in parallel (using perhaps MPI or OpenMPI), then setting ntasks=64 or perhaps larger will be the way to go.  One thing to note about 
+software that runs in parallel is that there is usually a point where using more CPUs doesn't actually speed things up anymore.  In fact this can often lead to CPUs sitting idle doing resulting again in less 
+than optimal utilization.  Sometimes the software may give guidelines where this point is but usually not.
+In most cases we would say that 32 to 64 CPUs will be sufficient and probably no more than 72 CPUs at a maximum.
+
+If your software can use a GPU then the number of tasks will vary.  In many cases only or maybe 1 or 2 CPUs is needed because most of the calculations occur on the GPU itself.  In some other cases though, there may be some kind of splitting
+between calculations that can be done of the GPU and those that cannot and so a greater number of CPUs (e.g., 8) may be the way to go.  Also, when using the GPU, the value for ntasks may not exceed 40.  We currently only have
+a single node with GPUs and that node only has 40 CPUs available to use.
+
+Importantly we aren't asking researchers to absolutely try and find the exact "right" value.  What we are asking is that researchers not grossly over-request the number of CPUs for a job so that
+as many jobs as possible can run.
+
+## Job limits
+
+Currently there are no limits in place when it comes to running jobs on the cluster.  We feel this provides the maximum amount of flexibility when it comes 
+to people utilizing the cluster.  However, if an individual user begins to "hog" the cluster 
+(e.g., submitting large amounts of jobs, requesting a high number of CPUs, running the same piece of software hundreds or more times in the same job script, etc.),
+then we may set and enforce limits for that indivdual user.  Further, various limits may be introdcuced in the future as needs and usage change.  
+
+If you have one or more jobs that may require a large amount of resources (e.g., many nodes, very long periods of time, etc.) then please contact us and we can
+see about arranging a reservation for your job that will temporarily dedicate some of the cluster resources to you and only you (effectively bypassing the job scheduler). 
 
 ## Example submission scripts
 
-One thing to note is that these examples are relatively simple.  Often times your submission will include many jobs to be run.  In addition, some pieces of software (notably Miniconda and Gaussian) require some
-additional steps in order to use them.  These steps and more general information about the software loaded on the cluster can be found in the [software section](../software/README.md) of the documentation.
+One thing to note is that these examples are relatively simple and are meant only as examples(and don't necessarily take the recommendations/tips discussed above into account).
+In addition, some pieces of software (notably Miniconda and Gaussian) require some additional steps in the job script in order to use them.  
+These steps and more general information about the software loaded on the cluster can be found in the [software section](../software/README.md) of the documentation.
 
 ### Single job, Single CPU
 ```bash
@@ -96,11 +130,12 @@ additional steps in order to use them.  These steps and more general information
 module purge
 module load miniconda
 
+# Necessary step in order to use miniconda which this setup for neuron requires
 eval "$(conda shell.bash hook)"
 conda activate neuron
 cd neuron
 
-# Run the code.  Start by printing the date (to know when the job started)
+# Run the code.  Start by printing the date (to know when neuron actually started running)
 date
 
 nrnivmodl ./
@@ -151,6 +186,7 @@ This script is similar to the one above except the code will be run using multip
 #!/bin/bash
 
 #SBATCH --job-name=neuron-test-job
+#SBATCH --ntasks=3
 
 module purge
 module load miniconda
@@ -177,7 +213,7 @@ wait
 date
 ```
 
-The real power of Slurm is the ability to submit and run multiple jobs at once assuming the necessary resources (e.g., number of CPUs) are available.  In this example, we are submitting three different single CPU jobs to run to run at the same time.
+The real power of Slurm is the ability to submit and run multiple jobs at once assuming the necessary resources (e.g., number of CPUs) are available.  In this example, we are submitting three different single CPU jobs to run at the same time (hence *--ntasks=3*).
 
 The first thing to notice is the use of *srun* before the program calls.  This is a SLURM command to submit a single run.
 
@@ -225,7 +261,8 @@ In this simulation we have decided to differentiate the runs by placing the appr
 
 ```bash
 #!/bin/bash                                                                                                                              
-#SBATCH --job-name=heimdall-test-job                                                                                                     
+#SBATCH --job-name=heimdall-test-job
+#SBATCH --ntasks=2                                                                                                     
 #SBATCH --partition=gpus                                                                                                                 
 #SBATCH --gres=gpu:1                                                                                                          
 #SBATCH --output=heimdall_test_%j.out                                                                                                    

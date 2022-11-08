@@ -9,7 +9,7 @@ The current list of available computing resources can be found [here](overview/R
 
 ## Acknowledging Research Computing
 
-Use of Franklin and Marshall Research Computing resources must be acknowledged in any and all publications.
+We are asking that use of Franklin and Marshall Research Computing resources be acknowledged in any publications(papers, grant proposals, posters, etc.).
 
  - For research using the cluster:
    - "This work utilized the research cluster at Franklin and Marshall College which was funded through NSF grant 1925192."
@@ -19,10 +19,10 @@ Use of Franklin and Marshall Research Computing resources must be acknowledged i
 
 ## Courses using Research Computing resources
 
-Instructors who wish to lead a class using any of the Research Computing resources must contact us at dorc@fandm.edu before the class begins.  This is to ensure that adequate resources and support are available.  At a minimum, we will need the following information:  
+Instructors who wish to lead a class using any of the Research Computing resources should contact us at dorc@fandm.edu before the class begins.  This is to ensure that adequate resources and support are available.  At a minimum, we will need the following information:  
 
+- What computational resource(s) are being requested, especially software
 - A list (preferably a text file) of the netIDs of everyone who needs access
-- Software needed 
 - Typical computational work load (number of jobs or sessions, length, number of CPUs, etc)
 
 In addition to the [compute resources provided here](overview/README.md) we also offer the following resources:
