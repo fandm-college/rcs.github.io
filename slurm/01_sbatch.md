@@ -79,7 +79,7 @@ it makes the task of scheduling jobs a little bit easier.  When, only --ntasks i
 
 ### How do I determine the value for ntasks (i.e., how many CPUs do I need)?
 
-In terms of choosing an actual value for the number of tasks, this will depend a great deal on your exact circumstances especially as it relates to how your software runs.  Some software is designed to essentially only run using a single CPU.  In such cases you may want to have a job that runs multiple instances of the program each one with different inputs and so ntasks=12 or less (depending on the exact number) is likely to be sufficient.
+In terms of choosing an actual value for the number of tasks, this will depend a great deal on your exact circumstances especially as it relates to how your software runs.  Some software is designed to essentially only run using a single CPU.  In such cases you may want to have a job that runs multiple instances of the program, each one with different inputs and so ntasks=12 or less (depending on the exact number) is likely to be sufficient.
 
 This is also a case where specifically setting either --nodes or --ntasks-per-node option may not be useful/desired.  If for example, your are running only 3 or 4 instances of your software then letting the scheduler find a few nodes with one or two idles CPUs to use may be better in terms of getting the job through the queue faster because there are always likely to be at least a few nodes with a small number of CPUs not already dedicated for other jobs.
  
