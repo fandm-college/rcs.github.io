@@ -57,5 +57,3 @@ The question of whether to use relative or absolute paths has no definitive answ
 relatively near to where you are in the directory tree, then it will likely be easier/more straightforward to use relative
 paths.  Otherwise you will likely have to use an absolute path.  What counts as "realtively near" is a matter of preference
 and may evolve over time as you become more comfortable with the Linux command line and directory structure.
-
-## Permissions
