@@ -2,7 +2,7 @@
 
 You should use SSh in order to connect to a server to run programs.  When you connect, you will be using a command-line based interface to interact with the server.
 If you aren't familiar with such means of interaction and/or aren't familiar with the Linux operating system, we recommend looking through our Linux tutorial
-beginning with the ![introduction to the command line](../linux/01_commandline.md)  
+beginning with the [introduction to the command line](../linux/01_commandline.md)  
 
 Two quick notes related to `ssh`
 
@@ -30,9 +30,9 @@ For sessions that run graphical applications, some adjustments must be made to t
   
 1. Select the session that needs to use graphical applications and click **Load** 
 2. In the box on the left-hand-side of the window labelled **Category:** click the following (in order)
-    a. **Connection**
-    b. **SSH**
-    c. **X11**
+    - **Connection**
+    - **SSH**
+    - **X11**
 3. Check the box labelled **Enable X11 forwarding**.  At this point, your PuTTY window should look similar to the picture below.
 4. Go back to the **Category:** box and click **Session**.  Then click **Save** to save the new settings.
 
