@@ -2,7 +2,7 @@
 sort: 2
 ---
 
-# Accessing Research Computing resources
+# Accessing servers
 
 You will primarily use two commands/utilities to access Research Computing resources from your personal computer.
 
