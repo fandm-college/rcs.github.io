@@ -38,7 +38,8 @@ For sessions that run graphical applications, some adjustments must be made to t
 
 ![PuTTY X11 forwarding](puttyX11.jpg)
 
-To actually connect to a server, double click the name of the server in the **Saved Sessions** box, or single click it and then click **Open**
+To actually connect to a server, double click the name of the server in the **Saved Sessions** box, or single click it and then click **Open**.  If will be using a 
+graphical application, you should start the VcXsrv application before connecting.
 
 There may be times you wish to copy/paste text to/from the PuTTY window.  This can be done but doesn't work the way it normally would in Windows.
 Instructions can be found [here](https://www.alphr.com/copy-paste-putty/) on how to do this.
