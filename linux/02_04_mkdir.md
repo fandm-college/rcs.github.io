@@ -31,7 +31,7 @@ auser@mycomputer:~$ mkdir -p /home/auser/proj4/code/testcode
 There are two basic ways to create a file.   The first, `touch <filename>` will create a new empty file in the current directory.  For example, `touch instructions.txt`.
 You can also add directory/path information to create it somewhere else.  
 
-The second way to create a file using an editor.  See the [text editing tutorial](03_file_edit.md)
+The second way to create a file using an editor.  See the [text editing tutorial](03_file_edit.md) for more details.
 
 ## Deleting a file/directory
 
