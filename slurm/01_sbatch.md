@@ -35,6 +35,8 @@ For example, if you wanted to use only 2 nodes to run your job, you would includ
 | Number of nodes    | The number of nodes needed to run the job           | --nodes=nodes              | --nodes=4                  |
 | Number of tasks    | The ***total*** number of CPUs needed to run the job | --ntasks=processes   | --ntasks=96                |
 | Tasks per node     | The number of processes you wish to assign to each node | --ntasks-per-node=processes | --ntasks-per-node=24   |
+| Memory per CPU     | Amount of memory needed on a per CPU basis          | --mem-per-cpu=amount       | --mem-per-cpu=16G         |
+| Memory per Node    | Amount of memory needed on a per Node basis         | --mem=amount               | --mem=16G                 |
 | Partition          | Specify a partition. Currently only needed if using a GPU | --partition=partition | --partition=gpus         |
 | Generic resource   | Specify a GRES. Currently only needed if using a GPU | --gres=gres:#              | --gres=gpu:1     |
 | Wall time          | The max amount of time your job will run for        | --time=wall time           |
@@ -75,7 +77,7 @@ It is important to have a basic understanding of how the job scheduler chooses  
 ### Recommendation 1: When ntasks is 20 or greater
 
 If the number of tasks is 20 or greater, then we strongly recommend also using the --nodes  or --ntasks-per-node directive to use more than one node.  The short reason (without getting into too many technical details) is that
-it makes the task of scheduling jobs a little bit easier.  When, only --ntasks is specified, we have seen issues where jobs have been held in the queue indefinitely until released by the cluster administrator.
+it makes the task of scheduling jobs a little bit easier.  When, only --ntasks is specified, we have seen issues where jobs have been held in the queue indefinitely until we released the job manually.
 
 ### How do I determine the value for ntasks (i.e., how many CPUs do I need)?
 
@@ -88,6 +90,12 @@ On the other hand, if your software can perform calculations in parallel (using 
 If your software can use a GPU then the number of tasks will vary.  In many cases only or maybe 1 or 2 CPUs is needed because most of the calculations occur on the GPU itself.  In some other cases though, there may be some kind of splitting between calculations that can be done of the GPU and those that cannot and so a greater number of CPUs (e.g., 8) may be the way to go.  Also, when using the GPU, the value for ntasks may not exceed 40.  We currently only havea single node with GPUs and that node only has 40 CPUs available to use.
 
 **Importantly we aren't asking researchers to try and find the exact "right" value.  What we are asking is that researchers not grossly over-request the number of CPUs for a job so that as many jobs as possible can run.
+
+### Recommendation 2: Memory
+
+By default the total memory assigned to a job is 4.75GB * # of CPUs requested for the job.  For example if your job requests 10 CPUs then it will be assigned roughly 48 GB of memory.  In most cases the default may be fine.  However, if your jobs are failing due to OUT OF MEMORY errors then you should specify either the --mem or --mem-per-cpu option.  Of the two, the --mem option is probably easier to deal with as it specifies the amount of memory on a per node basis.  Each node has a maximum of 190GB of available memory.  Very few jobs will require that much memory.  In addition, if you request that much memory for you job, then no other jobs can use that node for computations even if there are available CPUs.
+
+We recommend requesting memory in small increments.  For example, if your initial job was set to run using 20 CPUs (--ntasks=20) on two nodes (--nodes=2 and so roughly 48GB of memory per node by defualt) then perhaps start with --mem=60G.  This will request 60GB of per node, 12GB per node more than the original job.  You could accomplish the same thing using --mem-per-cpu=6GB but it may be easier to think of the memory usage on a per-node basis instead of a per-cpu basis.
 
 ### My job failed, now what?
 
