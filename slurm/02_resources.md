@@ -1,12 +1,46 @@
 # How do I determine how many resources to request?
 
-It is important to have a basic understanding of how the job scheduler chooses  when to run a certain job.  It is not in first-in first-out manner, and so just because there may be many jobs ahead of your newly submitted job, it doesn't necessarily mean all of the jobs will run before yours gets to run.  Instead, the scheduler chooses jobs based on several factors.  These factors include, but are not limited to
+It is important to have a basic understanding of how specifically the amount of CPUs (`--ntasks`) and memory you request for you jobs impacts how/when jobs will run.  Importantly, because the cluster is a campus
+shared resource, the impact is greater than to just any indivudual user.  Over-requesting resources (especially memory) can easily result in portions of the cluster being unused when they really could be used to run jobs 
+(More about this in the next section).  **Importantly we aren't asking researchers to try and find the exact "right" value because there isn't always an exact right value.  What we are asking is that researchers not grossly over-request resources for a job so that as many jobs as possible can run.
 
-- Availability of necessary resources
-- How long a job has been in the queue waiting to run
-- How many jobs an individual user has been runing and for how long
+##  Resources amounts per node
 
-### Recommendation 1: When ntasks is 20 or greater
+Before discussing guidelines for specifying resoucre amounts, you must first know what resources amounts are available on the cluster.
+There are 28 nodes (plus 1 GPU node) on the cluster.  Each node on the cluster consists of
+
+- 40 CPUs
+- 190 GB of memory
+- By default (i.e., if not specified in the job script) the default amount of memory for a job is 4.75G * `ntasks` (i.e., the number of CPUs requested for the job)
+
+In addition, there is a single GPU node (specified via the `--partition=gpu` directive) which contains 4 GPUs as well as CPU and memory limits just mentioned.
+
+In terms of specifying resource requests in your job scripts, at a bare minimum
+
+- `nodes` cannot exceed 28
+- `ntasks` / `nodes` cannot exceed 40 -OR-
+- `ntasks-per-node` cannot exceed 40
+-  `mem` cannot exceed 190G -OR-
+
+Not let's consider a simple example of two different jobs to see how grossly over-requesting resources can negatively impact the cluster usage.  In this example, let's assume there are only 3 nodes and these two jobs are requested
+one right after the other with these resource requests:
+
+- `--ntasks=12`
+- `--nodes=3`
+- `--mem=120G`
+
+and 
+
+- `--ntasks-per-node=18`
+- `--nodes=3`
+
+The first job starts to run, but the second job has to wait even though the nodes have 18 CPUs still available to be used.  The potential problem here is the memory usage.  The first job requests 120G of memory per node, leaving 70 available for other jobs.  The second job did not specify memory requirements and so uses the default of 4.75G per CPU.  That means the second job requests roughly 85.5G of memory per node to run, but that amount isn't available.
+
+- If the first job has grossly overrequested memory (that is requeted 120G when it needs a much smaller amount) then it will block the second job even though the first job may not be using all 120G of memory on the node.
+- The second job may also be at fault.  If the second job could use less than the default amount of memory (i.e. 4.75 * #CPUs requested) then it could have run despite the (potential) over-request from the first job
+if the user specified a smaller amount of memory (e.g., `--mem=20G).
+
+## Recommendation for ntasks
 
 If the number of tasks is 20 or greater, then we strongly recommend also using the --nodes  or --ntasks-per-node directive to use more than one node.  The short reason (without getting into too many technical details) is that
 it makes the task of scheduling jobs a little bit easier.  When, only --ntasks is specified, we have seen issues where jobs have been held in the queue indefinitely until we released the job manually.
@@ -23,15 +57,13 @@ If your software can use a GPU then the number of tasks will vary.  In many case
 
 **Importantly we aren't asking researchers to try and find the exact "right" value.  What we are asking is that researchers not grossly over-request the number of CPUs for a job so that as many jobs as possible can run.
 
-### Recommendation 2: Memory
+## Recommendations for memory
 
 By default the total memory assigned to a job is 4.75GB * # of CPUs requested for the job.  For example if your job requests 10 CPUs then it will be assigned roughly 48 GB of memory.  In most cases the default may be fine.  However, if your jobs are failing due to OUT OF MEMORY errors then you should specify either the --mem or --mem-per-cpu option.  Of the two, the --mem option is probably easier to deal with as it specifies the amount of memory on a per node basis.  Each node has a maximum of 190GB of available memory.  Very few jobs will require that much memory.  In addition, if you request that much memory for you job, then no other jobs can use that node for computations even if there are available CPUs.
 
 We recommend requesting additional memory in small increments.  For example, if your initial job was set to run using 20 CPUs (--ntasks=20) on two nodes (--nodes=2 and so roughly 48GB of memory per node by defualt) then perhaps start with --mem=60G.  This will request 60GB of per node, 12GB per node more than the original job.  You could accomplish the same thing using --mem-per-cpu=6GB but it may be easier to think of the memory usage on a per-node basis instead of a per-cpu basis.
 
-### My job failed, now what?
 
-If your job fails, the first place to look is the output file you specified using the --output directive.  More often than not, you will see some sort of error that will help you determine why the job failed.  If your software produces any outfiles, then those may also provide some clues as to why things did not complete successfully.
 
 ## Job limits
 
