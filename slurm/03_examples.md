@@ -1,6 +1,6 @@
 # Example batch submission scripts
 
-One thing to note is that these examples are relatively simple and are meant only as examples(i.e., don't necessarily take the recommendations on values for --ntasks into consideration).  In addition, some pieces of software (notably Miniconda and Gaussian) require some additional steps in the job script in order to use them.  These steps and more general information about the software loaded on the cluster can be found in the [software section](../software/README.md) of the documentation.
+One thing to note is that these examples are relatively simple and are meant only as examples(i.e., don't  take the recommendations on values for things like `ntasks` into consideration).  In addition, some pieces of software (notably Miniconda and Gaussian) require some additional steps in the job script in order to use them.  These steps and more general information about the software loaded on the cluster can be found in the [software section](../software/README.md) of the documentation.
 
 ## Single job using 1 CPU
 

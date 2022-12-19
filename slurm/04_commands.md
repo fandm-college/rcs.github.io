@@ -110,18 +110,13 @@ A chart of some these variables and their description is provided here:
 Variable    | Description
 ------------|------------
 avecpu      | Average CPU time of all tasks in job.
-averss      | Average resident set size of all tasks.
-avevmsize   | Average virtual memory of all tasks in a job.
 jobid       | The id of the Job.
-maxrss      | Maximum number of bytes read by all tasks in the job.
-maxvsize    | Maximum number of bytes written by all tasks in the job.
 ntasks      | Number of tasks in a job.
 
-For an example, to print out a job's job id, average cpu time, max
-rss, and number of tasks you would do:
+For an example, to print out a job's job id, average cpu time and number of tasks you would do:
 
 ```bash
-sstat --jobs=job-id --format=jobid,avecpu,maxrss,ntasks
+sstat --jobs=job-id --format=jobid,avecpu,ntasks
 ```
 
 A full list of variables that specify data handled by sstat can be
@@ -129,6 +124,8 @@ found with the `--helpformat` flag or by [visiting the slurm page on
 sstat](https://slurm.schedmd.com/sstat.html).
 
 ## Examining past jobs
+
+### sacct
 
 The `sacct` command allows users to pull up status information about
 past jobs. This command is very similar to sstat, but is used on jobs
@@ -185,7 +182,6 @@ jobid       | The id of the Job.
 jobname     | The name of the Job.
 maxdiskread | Maximum number of bytes read by all tasks in the job.
 maxdiskwrite| Maximum number of bytes written by all tasks in the job.
-maxrss      | Maximum resident set size of all tasks in the job.
 ncpus       | Amount of allocated CPUs.
 nnodes      | The number of nodes used in a job.
 ntasks      | Number of tasks in a job.
@@ -196,26 +192,45 @@ user        | Username of the person who ran the job.
 
 As an example, suppose you want to find information about jobs that
 were run on March 12, 2018. You want to show information regarding the
-job name, the number of nodes used in the job, the number of cpus, the
-maxrss, and the elapsed time. Your command would look like this:
+job name, the number of nodes used in the job, the number of cpus, and the elapsed time. Your command would look like this:
 
 ```bash
-$ sacct --user=username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,maxrss,elapsed
+$ sacct --user=username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,elapsed
 ```
 
 As another example, suppose you would like to pull up information on
 jobs that were run on February 21, 2018. You would like information on
-job ID, job name, Number of Nodes used, Number of CPUs used,
-Maximum RSS, CPU time, Average CPU time, and elapsed time. Your
+job ID, job name, Number of Nodes used, Number of CPUs used, CPU time, Average CPU time, and elapsed time. Your
 command would look like this:
 
 ```bash
-$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,nnodes,ncpu,maxrss,cputime,avecpu,elapsed
+$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,nnodes,ncpu,cputime,avecpu,elapsed
 ```
 
 A full list of variables that specify data handled by sacct can be
 found with the `--helpformat` flag or by [visiting the slurm page on
 sacct](https://slurm.schedmd.com/sacct.html).
+
+### seff
+
+The `seff` command provides somne additional information on completed jobs specifically related to job effeciency (especially CPU and memory utilization).  It requires the job-id.  Here is an example output for a job whose id was 57957:
+
+```bash
+[auser@rcs-scsn neuron_mpi]$ seff 57957
+Job ID: 57957
+Cluster: rcs-sc
+User/Group: auser/auser
+State: COMPLETED (exit code 0)
+Nodes: 4
+Cores per node: 24
+CPU Utilized: 2-13:11:03
+CPU Efficiency: 99.24% of 2-13:39:12 core-walltime
+Job Wall-clock time: 00:38:32
+Memory Utilized: 2.32 GB
+Memory Efficiency: 0.91% of 256.00 GB
+```
+
+Based on this output, we can see that it used 96 CPUs (Nodes * Cores per node) and that the CPU utilization  was very good, 99.24%  This basically means that pretty much all the CPUs were in use for the entire time the job ran.  Memory utilization was no so good though.  The job requested 256GB of memory but only used 2.32GB (.91% utilization).
 
 ## Controlling queued and running jobs
 

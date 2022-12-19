@@ -21,6 +21,8 @@ After these directives comes the commands to load and run the necessary software
 #SBATCH --ntasks=16
 #SBATCH --ntasks-per-node=4
 #SBATCH --mem=12G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=auser@fandm.edu
 
 # Now that resources and such are specified actually setup and run software
 module purge
@@ -60,7 +62,7 @@ A full list of directives and other options can be found in Slurm's documentatio
 | --job-name          | Name your job so you can identify it in the queue   | --job-name=neuron-job      |
 | --output            | Specify a file that                                 | --output=myjob.out         |
 | --mail-type         | Get email when job starts/completes                 | --mail-type=END, FAIL      |
-| --mail-user         | Email address to receive the email                  | --mail-user=auser@fadm.edu |
+| --mail-user         | Email address to receive the email                  | --mail-user=auser@fandm.edu |
 | --nodes             | The number of nodes needed to run the job           | --nodes=4                  |
 | --ntasks            | The ***total*** number of CPUs needed to run the job | --ntasks=96               |
 | --ntasks-per-node   | The number of processes you wish to assign to each node | --ntasks-per-node=24   |
@@ -69,12 +71,12 @@ A full list of directives and other options can be found in Slurm's documentatio
 | --partition         | Specify a partition. Currently only needed if using a GPU | --partition=gpus     |
 | --gres              | Specify a GRES. Currently only needed if using a GPU | --gres=gpu:1              |
 
-- The directives for emailing (`mail-type` and `mail-user`)are not currently setup so do not include them (yet).  We will let users know when these are working.
 - Not all job scripts need all of these directives.  In almost all cases you should specify:
   - `job-name`
   - `output`
   - `ntasks`
   - Either `nodes` or `ntasks-per-node`
+  - Either `mem` or `mem-per-cpu` (These directives are mutually exclusive
 
 - For software that runs on a GPU you will also need to specify
   - `partition`, specifically `--partition=gpus`
@@ -94,13 +96,13 @@ For the `output` directive we recommend using one of the following two forms dep
 
 ## My job failed, now what?
 
-If your job fails, the first place to look is the output file you specified using the `--output` directive.  More often than not, you will see some sort of error that will help you determine why the job failed.  If your software produces any output files, then those may also provide some clues as to why things did not complete successfully.  
+If your job fails, the first place to look is the output file you specified using the `output` directive.  More often than not, you will see some sort of error that will help you determine why the job failed.  If your software produces any output files, then those may also provide some clues as to why things did not complete successfully.  
 
 Additional Slurm commands discussed [here](04_commands.md) such as `squeue` and `sacct` also provide some information regarding the status of your job and possible reasons for failure.  If after checking through the various output files and job information supplied by other commands, you still aren't sure why your job failed or how to correct the issue then please contact us and we will assist you.
 
-While tere are many reason a job may fail, but one of the more common reasons is because of memory issues (OUT_OF_MEMORY or OOM).  This is a result of either
+While there are many reason a job may fail, but one of the more common reasons is because of memory issues (OUT_OF_MEMORY or OOM).  This is a result of either
 
 1. Not specifying the `--mem` or `--mem-per-cpu` and your job needing more than the default amount of memory -OR-
-2. Using the memory directive but not specifying a high enough value for the memory needed for your job.
+2. Using one of the memory directives but not specifying a high enough value for the memory needed for your job.
 
 Regardless, the next section discusses some guidleines to help you when it comes to memory (and other resource) usage.
