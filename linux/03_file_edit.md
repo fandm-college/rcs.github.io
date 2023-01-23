@@ -1,4 +1,4 @@
-# Editing files
+# Editing files on the command line
 
 Linux comes with several different programs to edit files from the command line.  Here we will briefly present one of them, `nano`, 
 which is on most Linux systems by default.  `nano` with no other arguments will open a blank file.  You can also open an existing file

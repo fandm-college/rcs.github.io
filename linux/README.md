@@ -9,7 +9,7 @@ Most research computing resources use Linux as the operating system.  Although L
 ## Topics
 
 1. [Introduction to the command line](01_commandline.md)
-2. [File organization/management](02_file_manage.md)
-3. [Editing files](03_file_edit.md)
+2. [File organization/management](02_00_directory_intro.md)
+3. [Editing files on the command line](03_file_edit.md)
 4. [Redirecting output](04_output.md)
 5. [Using tmux](05_tmux.md)

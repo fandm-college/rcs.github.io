@@ -37,7 +37,7 @@ The second way to create a file using an editor.  See the [text editing tutorial
 
 The first and most important thing to keep in mind when deleting anything using the command line is that it is **not reversible**.  Operating
 systems like Windows, Mac OS X, and even when using a GUI with Linux, typically have a two-step process where directories/files first go
-to trash and then the trash has to be emptied to permanently remove it.  In the Linux command line, when you issue the command to delete something 
+to trash and then the trash has to be emptied to permanently remove it.  The Linux command line is different in this regard.  When you issue the command to delete something 
 it is immediately and permanently removed with no way to recover it(unless you happened to back it up somewhere).
 
 In order to delete either a file or a directory, you can use the `rm` command:
@@ -89,3 +89,5 @@ hw1.py  hw2.py  hw3.py  lect01.py   lect02.py   slides
 ```
 
 ## Moving files/directories
+
+**UNDER CONSTRUCTION**
