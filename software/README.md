@@ -8,7 +8,6 @@ Because different scientific software packages sometimes require conflicting dep
 
 1. Modules
 2. Conda environments
-3. Containers
 
 This section will briefly describe each of these mechanisms, but assumes some familiarity with Slurm batch scripts described [here](../slurm/01_sbatch.md)
 
@@ -107,32 +106,3 @@ pysigproc         /opt/apps/miniconda3/envs/pysigproc
 ```
 
 The left column is the environment name.  That is what you will use with `conda activate`.  The right column is the path (think folder) where that environment is.  In most cases the path does not matter, it's the environment name you will need.
-
-## Containers
-
-At a very high level, a container is a self-contained system consisting of an OS, software, necessary libraries etc.  That is a container can be built and run relatively independent of the system being used.  Containers are sometimes used when scientific packages have very complicated setups/software dependencies or are old and don't run on newer systems.
-
-## Using containers
-
-There are different programs to run containers, but we use Singularity only.  To use a container you call `singularity exec` along with:
-1. The name of the container
-2. The name of your program 
-3. Any parameters your program needs to run.  
-
-For example if you wish to run `prepfold` which is part of the PRESTO software package then you might put the following in your Slurm script:
-
-```bash
-singularity exec /opt/apps/cont/presto.sif prepfold -n 64 -nsub 96 -p 0.004621638 -dm 62.0 GBT.fil
-```
-
-The first portion, `singularity exec /opt/apps/cont/presto.sif` runs the PRESTO container.  The second portion, `prepfold -n 64 -nsub 96 -p 0.004621638 -dm 62.0 GBT.fil`, calls the specific program we wish to run along with any necessary parameters needed to run.
-
-### Listing containers
-
-Unlike with modules and Conda there is no nice way of listing the available containers, but below is an up to date list
-
-| **Software package** | **Container** |
-| :------------------- | :------------ |
-| PRESTO (Version 4.0) | presto.sif    |
-
-**Note:** All containers are stored in the /opt/apps/cont directory.  You must include the full path to use the container
