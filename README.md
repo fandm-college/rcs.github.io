@@ -9,7 +9,7 @@ The current list of available computing resources can be found [here](overview/R
 
 ## Acknowledging Research Computing
 
-We are asking that use of Franklin and Marshall Research Computing resources be acknowledged in any publications(papers, grant proposals, posters, etc.).
+We are asking that use of Franklin and Marshall Research Computing resources be acknowledged in any publications (papers, grant proposals, posters, etc.).
 
  - For research using the cluster:
    - "This work utilized the research cluster at Franklin and Marshall College which was funded through NSF grant 1925192."
