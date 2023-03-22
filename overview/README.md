@@ -1,5 +1,7 @@
 ---
-sort: 1
+Title: Current resources
+category: Introduction
+order: 2
 ---
 
 # Available resources

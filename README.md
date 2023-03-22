@@ -1,3 +1,8 @@
+---
+Title: Research Computing Overview
+category: Introduction
+order: 1
+---
 # Research Computing Overview
 
 This guide provides information and basic how-tos related to Research Computing resources. 
