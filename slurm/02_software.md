@@ -1,21 +1,15 @@
----
-sort: 4
----
+-# Accessing Software on the cluster
 
-# Software on the cluster
-
-Because different scientific software packages sometimes require conflicting dependencies, software is only available through three mechanisms:
+Because different scientific software packages sometimes require conflicting dependencies, software is only available through two mechanisms:
 
 1. Modules
 2. Conda environments
 
-This section will briefly describe each of these mechanisms, but assumes some familiarity with Slurm batch scripts described [here](../slurm/01_sbatch.md)
+This section will briefly describe each of these mechanisms, but assumes some familiarity with Slurm batch scripts described [here](01_sbatch.md)
 
 ## Modules
 
 Environment Modules (or more commonly just modules) is a system for dynamically loading software packages into your environment using a command line tool called `module`. Software packages are installed in a central, read-only location and then a modulefile is built for the software which modifies your environment when you load this module, so that the software becomes visible to you.
-
-This system makes it easy for everyone to find and load pre-built software into their environment to use with their programs, and allows multiple versions of the same software to coexist on the system together.
 
 
 ### Using modules

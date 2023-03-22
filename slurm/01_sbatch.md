@@ -82,7 +82,7 @@ A full list of directives and other options can be found in Slurm's documentatio
   - `partition`, specifically `--partition=gpus`
   - `gres` will usually be in the form: `gres=gpu:1`  The number after the colon is the number of GPUs needed.  In almost all cases the value should be 1.
 
-## --output directive
+## Understanding the --output directive
 
 Some software packages sometimes output messages and errors directly to the terminal as they run.  The `output` directive specifies a file name where such messages will be written to instead of being dispalyed to the terminal.  It **does not** specify the name of output file(s) which your particular program may use to capture output.  Those files still need to be specified as you normally would when running the software.
 
