@@ -1,4 +1,4 @@
--# Accessing Software on the cluster
+# Accessing Software on the cluster
 
 Because different scientific software packages sometimes require conflicting dependencies, software is only available through two mechanisms:
 
