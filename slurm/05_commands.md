@@ -1,23 +1,48 @@
 # Job management and monitoring
 
-Slurm provides a variety of tools that allow a user to manage and
-monitor their jobs. This tutorial will briefly introduce these tools and their usage.
+Slurm provides a variety of tools that allow you to monitor and
+manage jobs.
 
-## Queued jobs
+## Slurm job queue
 
-The `squeue` command is a tool that can be used to pull up information about the
+The `squeue` command is a tool that can be used to display information about the
 jobs in queue. By default, the squeue command will print out the
 *__job ID__*, *__partition__*, *__username__*, *__job status__*,
-*__number of nodes__*, and *__name of nodes__* for all jobs queued or
-running within Slurm. Usually you don't want information for all
-jobs that were queued in the system, so you can specify jobs that only
-you are running with the `--user` flag:
+*__number of nodes__*, and *__name of nodes__* for all queued and running jobs.
+For example:
 
 ```bash
-$ squeue --user=username
+JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+60149     nodes nil-neur nsengupt  R 1-19:38:33     15 n[07-21]
+60187       osg bl_3jsGg    osg01 PD       0:00      1 (Priority)
+60186       osg bl_lUjLu    osg01 PD       0:00      1 (Priority)
+60184       osg bl_rqGUg    osg01 PD       0:00      1 (Priority)
+60185       osg bl_Sixws    osg01 PD       0:00      1 (Priority)
+60179       osg bl_8Afn2    osg01 PD       0:00      1 (Priority)
+60178       osg bl_WWNqJ    osg01 PD       0:00      1 (Priority)
+60177       osg bl_DqhRR    osg01 PD       0:00      1 (Priority)
+60176       osg bl_5dXSj    osg01 PD       0:00      1 (Resources)
+60175       osg bl_fthxT    osg01  R    6:23:21      1 n36
+60174       osg bl_0OkIh    osg01  R    6:25:19      1 n32
+60173       osg bl_9pmce    osg01  R    8:31:26      1 n35
+60172       osg bl_effaH    osg01  R   12:24:54      1 n29
+60167       osg bl_cdVsx    osg01  R   12:25:00      1 n30
+60166       osg bl_87MDq    osg01  R   13:10:32      1 n33
+60165       osg bl_4DTvm    osg01  R   13:32:17      1 n34
+60164       osg bl_Lvpox    osg01  R   13:49:47      1 n31
 ```
 
-You can output additional information with the `--long` flag. This
+In this case there are 17 jobs in the queue.  The column labeled `ST` gives the state of the job, with `R` indicating
+that the job is running, and `PD` indicating that the job is pending.  There are many different job states including
+`ST`, stopped, `OOM`, out of memory, and `F`, failed, but most of the time you see running and pending.
+
+If you wish to see the state of only your jobs, you can use the `--user` flag as:
+
+```bash
+$ squeue --user=osg01
+```
+
+You can also  output additional information with the `--long` flag. This
 flag will print out the non-abbreviated default information with the
 addition of a *__timelimit__* field:
 
@@ -25,11 +50,10 @@ addition of a *__timelimit__* field:
 $ squeue --user=username --long
 ```
 
-The squeue command also provides users with a means to calculate a
+The squeue command also provides users with a means to display a
 job's estimated start time by adding the `--start` flag to your
 command. This will append Slurm's estimated start time for each job in
-the output information. 
-> Note: The start time provided by this command
+the output information.  However, the start time provided by this command
 can be inaccurate. This is because the time calculated is based on
 jobs queued or running in the system. If a job with a higher priority
 is queued after the command is run, your job may be delayed.
@@ -38,27 +62,12 @@ is queued after the command is run, your job may be delayed.
 $ squeue --user=username --start
 ```
 
-When checking the status of a job, you may want to repeatedly call the
-squeue command to check for updates. You can accomplish this by adding
-the `--iterate` flag to our squeue command. This will run squeue every
-`n` seconds, allowing for a frequent, continuous update of queue
-information without needing to repeatedly call squeue:
-
-```bash
-$ squeue --user=username --start --iterate=n_seconds
-```
-
-Press `ctrl`-`c` to stop the command from looping and bring you back
-to the terminal.
-
-For more information on squeue, [visit the Slurm page on
-squeue](https://slurm.schedmd.com/squeue.html)
+For more information on squeue, [visit the Slurm page for squeue](https://slurm.schedmd.com/squeue.html)
 
 ## Stopping jobs
 
-Sometimes you may need to stop a job entirely while it’s running. The
-best way to accomplish this is with the `scancel` command. The scancel
-command allows you to cancel jobs you are running using the job’s ID. 
+Sometimes you may need to stop a job entirely either while it’s running or before it starts. 
+This can be done with the `scancel` command. 
 The command looks like this:
 
 ```bash
@@ -71,35 +80,24 @@ To cancel multiple jobs, you can use a comma-separated list of job IDs:
 $ scancel job-id1, job-id2, jobid3
 ```
 
-If your job has sub-jobs, it will be displayed as two numbers separated by an underscore.
-The first number is the job-id and the second is the sub-job-id.  You can use scancel
-to either cancel all the sub-jobs or just individual ones.  For example, if your
-job-id is 439 and it has four sub-jobs 439_1, 439_2, 439_3, 439_4 then 
+For more information, [visit the Slurm page for scancel](https://slurm.schedmd.com/scancel.html)
 
-```bash
-$ scancel 439      # Cancels all sub-jobs
-$ scancel 439_3    # Only cancels sub-job 3
-```
+## Information on running jobs
 
-For more information, [visit the Slurm manual on scancel](https://slurm.schedmd.com/scancel.html)
-
-## Currently running jobs
-
-The `sstat` command allows users to easily pull up status information
-about their currently running jobs. This includes information about *__CPU usage__*,
-*__task information__*, *__node information__*, *__resident set size
-(RSS)__*, and *__virtual memory (VM)__*. You can invoke the sstat
+The `sstat` command allows users to pull up status information
+about  currently running jobs. This includes information about *__CPU usage__*,
+*__task information__*, *__node information__*, *__resident set size(RSS)__* (i.e. memory usage), 
+and *__virtual memory (VM)__*. The basic form for the `sstat` command is:
 command as such:
 
 ```bash
 $ sstat --jobs=job-id
 ```
 
-By default, sstat will pull up significantly more information than
-what would be needed in the commands default output. To remedy this,
-you can use the `--format` flag to choose what you want in our
-output. The format flag takes a list of comma separated variables
-which specify output data:
+By default, it will display a large amount of information.  Quite possibly more information than
+you might want.  To limit the information displayed,
+you can use the `--format` flag to choose only that information you want to see.
+This flag takes a list of comma separated variables which specify the information to report:
 
 ```bash
 $ sstat --jobs=job-id --format=var_1,var_2, ... , var_N
@@ -119,101 +117,16 @@ For an example, to print out a job's job id, average cpu time and number of task
 sstat --jobs=job-id --format=jobid,avecpu,ntasks
 ```
 
-A full list of variables that specify data handled by sstat can be
-found with the `--helpformat` flag or by [visiting the slurm page on
+A full list of variables that specify data handled by `sstat` can be
+found with the `--helpformat` flag or by [visiting the slurm page for
 sstat](https://slurm.schedmd.com/sstat.html).
 
-## Examining past jobs
-
-### sacct
-
-The `sacct` command allows users to pull up status information about
-past jobs. This command is very similar to sstat, but is used on jobs
-that have been previously run on the system instead of currently
-running jobs. You can use a job's id...
-
-```bash
-$ sacct --jobs=job-id
-```
-
-...or your username...
-
-```bash
-$ sacct --user=username
-```
-
-...to pull up accounting information on jobs run at an earlier time.
-
-By default, sacct will only pull up jobs that were run on the current
-day. You can use the `--starttime` flag to tell the command to look
-beyond its short-term cache of jobs.
-
-```bash
-$ sacct –-jobs=your_job-id –-starttime=YYYY-MM-DD
-```
-
-To see a non-abbreviated version of sacct output, use the `--long`
-flag:
-
-```bash
-$ sacct –--user=username –-starttime=YYYY-MM-DD --long
-```
-
-Like `sstat`, the standard output of sacct may not provide the
-information we want. To remedy this, you can use the `--format` flag to
-choose what you want in your output. Similarly, the format flag is
-handled by a list of comma separated variables which specify output
-data:
-
-```bash
-$ sacct --user=username --format=var_1,var_2, ... ,var_N
-```
-
-A chart of some variables is provided below:
-
-Variable    | Description
-------------|------------
-account     | Account the job ran under.
-averss      | Average resident set size of all tasks in the job.
-cputime     | Formatted (Elapsed time * CPU) count used by a job or step.
-elapsed     | Jobs elapsed time formated as DD-HH:MM:SS.
-exitcode    | The exit code returned by the job script or salloc.
-jobid       | The id of the Job.
-jobname     | The name of the Job.
-maxdiskread | Maximum number of bytes read by all tasks in the job.
-maxdiskwrite| Maximum number of bytes written by all tasks in the job.
-ncpus       | Amount of allocated CPUs.
-nnodes      | The number of nodes used in a job.
-ntasks      | Number of tasks in a job.
-priority    | Slurm priority.
-reqcpu      | Required number of CPUs
-reqmem      | Required amount of memory for a job.
-user        | Username of the person who ran the job.
-
-As an example, suppose you want to find information about jobs that
-were run on March 12, 2018. You want to show information regarding the
-job name, the number of nodes used in the job, the number of cpus, and the elapsed time. Your command would look like this:
-
-```bash
-$ sacct --user=username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,elapsed
-```
-
-As another example, suppose you would like to pull up information on
-jobs that were run on February 21, 2018. You would like information on
-job ID, job name, Number of Nodes used, Number of CPUs used, CPU time, Average CPU time, and elapsed time. Your
-command would look like this:
-
-```bash
-$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,nnodes,ncpu,cputime,avecpu,elapsed
-```
-
-A full list of variables that specify data handled by sacct can be
-found with the `--helpformat` flag or by [visiting the slurm page on
-sacct](https://slurm.schedmd.com/sacct.html).
+## Information on completed jobs
 
 ### seff
 
-The `seff` command provides somne additional information on completed jobs specifically related to job effeciency (especially CPU and memory utilization).  It requires the job-id.  Here is an example output for a job whose id was 57957:
+The `seff` command provides somne useful and succint information on completed jobs, especially as it relates to the efficiency of resource usage (e.g., CPU and memory utilization).  
+This command requires a job ID.  Below is an example running the command and associated output:
 
 ```bash
 [auser@rcs-scsn neuron_mpi]$ seff 57957
@@ -232,42 +145,52 @@ Memory Efficiency: 0.91% of 256.00 GB
 
 Based on this output, we can see that it used 96 CPUs (Nodes * Cores per node) and that the CPU utilization  was very good, 99.24%  This basically means that pretty much all the CPUs were in use for the entire time the job ran.  Memory utilization was no so good though.  The job requested 256GB of memory but only used 2.32GB (.91% utilization).
 
-## Controlling queued and running jobs
+### sacct
 
-The `scontrol` command provides extended control of your jobs
-run through Slurm. This includes actions like suspending a job,
-holding a job from running.
-
-To suspend a job that is currently running on the system, you can use
-scontrol with the `suspend` command. This will stop a running job on
-its current step that can be resumed at a later time. We can suspend a
-job by typing the command:
-
-```
-$ scontrol suspend job_id
-```
-
-To resume a paused job, we use scontrol with the `resume` command:
+The `sacct` command allows users to see a wide range of information about completed jobs up.
+This command is very similar to sstat.  Below are two examples.  The first gets information for
+a specific job and the second gets job information for a specific user.
 
 ```bash
-$ scontrol resume job_id
+$ sacct --jobs=job-id
+$ sacct --user=username
 ```
 
-Slurm also provides a utility to hold jobs that are queued in the
-system. Holding a job will place the job in the lowest priority,
-effectively "holding" the job from being run. A job can only be held
-if it's waiting on the system to be run. To use the `hold` command to
-place a job into a held state:
+By default, sacct will retrieve jobs that were run during the current
+day. You can use the `--starttime` flag to tell the command to examine jobs 
+run further in the past as in this example:
 
 ```bash
-$ scontrol hold job_id
+$ sacct –-jobs=your_job-id –-starttime=YYYY-MM-DD
 ```
 
-You can then release a held job using the `release` command:
+To see a non-abbreviated version of output, use the `--long`
+flag:
 
 ```bash
-$ scontrol release job_id
+$ sacct –--user=username –-starttime=YYYY-MM-DD --long
 ```
 
-For more information on scontrol, [visit the Slurm page on
-scontrol](https://slurm.schedmd.com/scontrol.html)
+As with `sstat`, the information that is displayed can be adjusted using the `--format`.
+This flags works exactly as described with `sstat`
+
+As an example, suppose you want to find information about jobs that
+were run on March 12, 2018. You want to show information regarding the
+job name, the number of nodes used in the job, the number of cpus, and the elapsed time. Your command would look like this:
+
+```bash
+$ sacct --user=username --starttime=2018-03-12 --format=jobname,nnodes,ncpus,elapsed
+```
+
+As another example, suppose you would like to pull up information on
+jobs that were run on February 21, 2018. You would like information on
+job ID, job name, Number of Nodes used, Number of CPUs used, CPU time, Average CPU time, and elapsed time. Your
+command would look like this:
+
+```bash
+$ sacct --user=username –-starttime=2018-02-21 --format=jobid,jobname,nnodes,ncpu,cputime,avecpu,elapsed
+```
+
+More details regarding `sacct` including a full list of fields that can be displayed 
+with the `--format` flag can be found found with the `--helpformat` flag or by [visiting the slurm page for
+sacct](https://slurm.schedmd.com/sacct.html).
