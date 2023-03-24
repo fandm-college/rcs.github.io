@@ -5,7 +5,7 @@ sort: 1
 # Research Computing Overview
 
 This guide provides information and basic how-tos related to Research Computing resources. 
-If you have any questions, please contact:
+If you have any questions or to request an account please contact:
 
 dorc@fandm.edu.
 
