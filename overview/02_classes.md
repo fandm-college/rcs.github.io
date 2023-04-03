@@ -1,6 +1,12 @@
 # Research Computing resources for classes
 
-Instructors who wish use any of the Research Computing resources should contact us at dorc@fandm.edu before the class begins to ensure that adequate resources and support are available.  At a minimum, we will need the following information:  
+Instructors who wish use any of the Research Computing resources for a class
+should contact us at:
+
+dorc@fandm.edu 
+
+before the class begins to ensure that adequate resources and support are available.  
+At a minimum, we would like the following information:  
 
 - Software you wish to use
 - A list of the netIDs of those who need access
