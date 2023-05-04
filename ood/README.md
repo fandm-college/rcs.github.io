@@ -8,7 +8,7 @@ Open OnDemand is a web portal that provides access to the F&M research cluster.
 It allows user access and job management without the need for knowledge of Linux.
 That said, you may still need to access the cluster directly for some purposes.
 
-The URL is ```rcs-scsn.fandm.edu``` and your login credentials are your netID and password.
+The URL is ```https://rcs-scsn.fandm.edu``` and your login credentials are your netID and password.
 Please note that if you try to access this website from off campus, you must connected to the VPN first.
 
 When you login you will get a page similar to:
