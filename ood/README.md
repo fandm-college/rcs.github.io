@@ -2,7 +2,7 @@
 sort: 4
 ---
 
-# Introduction to Open OnDemand (OOD)
+# Open OnDemand (OOD)
 
 Open OnDemand is a web portal that provides access to the F&M research cluster.
 It allows user access and job management without the need for knowledge of Linux.
