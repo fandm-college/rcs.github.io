@@ -114,6 +114,11 @@ bash BSc-044aa.run
 
 date
 ```
+
+**One final important note**  After creating the job, but before running it, highlight your job, and click the Job Options button.  Just above the Save button
+is a checkbox labeled *Copy environment*.  Make sure to check that box and then click Save.  Many jobs will fail to run when submitted through the OOD web portal 
+if that box is not selected.
+
 ### Submitting and stopping jobs
 
 You can submit a job by selecting it from your list and clicking the Submit button.  Similarly you can stop a running job by
