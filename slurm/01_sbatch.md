@@ -98,7 +98,7 @@ For the `output` directive we recommend using one of the following two forms dep
 
 If your job fails, the first place to look is the output file you specified using the `output` directive.  More often than not, you will see some sort of error that will help you determine why the job failed.  If your software produces any output files, then those may also provide some clues as to why things did not complete successfully.  
 
-Additional Slurm commands discussed [here](04_commands.md) such as `squeue` and `sacct` also provide some information regarding the status of your job and possible reasons for failure.  If after checking through the various output files and job information supplied by other commands, you still aren't sure why your job failed or how to correct the issue then please contact us and we will assist you.
+Additional Slurm commands discussed [here](05_commands.md) such as `squeue` and `sacct` also provide some information regarding the status of your job and possible reasons for failure.  If after checking through the various output files and job information supplied by other commands, you still aren't sure why your job failed or how to correct the issue then please contact us and we will assist you.
 
 While there are many reason a job may fail, but one of the more common reasons is because of memory issues (OUT_OF_MEMORY or OOM).  This is a result of either
 
