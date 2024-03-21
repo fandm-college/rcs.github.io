@@ -13,9 +13,9 @@ as the operating system, we strongly suggest you go through our Linux tutorial [
 | Jupyter | https://jupyterhub.fandm.edu:8000/ |
 | RStduio Pro | https://math-r.fandm.edu |
 | Webwork | https://math.fandm.edu/webwork2 |
-| Globus | {::nomarkdown}<ul><li>Web access at https://app.globus.org/login</li><li>Or using the Connect Personal app downloadable at https://www.globus.org/globus-connect-personal</li>/<ul>{:/} |
-| Most other systems | {::nomarkdown}<ul><li>SSH to connect to a server and run commands</li><li>SCP to copy files and directories to/from a server</li>/<ul>{:/} |
-| Research cluster | {::nomarkdown}<ul><li>SSH/SCP</li><li>Web access through Open OnDemand at https://rcs-scsn.fandm.edu</li>/<ul>{:/} |
+| Globus | {::nomarkdown}<ul><li>Web access at https://app.globus.org/login</li><li>Or using the Connect Personal app downloadable at https://www.globus.org/globus-connect-personal</li></ul>{:/} |
+| Most other systems | {::nomarkdown}<ul><li>SSH to connect to a server and run commands</li><li>SCP to copy files and directories to/from a server</li></ul>{:/} |
+| Research cluster | {::nomarkdown}<ul><li>SSH/SCP</li><li>Web access through Open OnDemand at https://rcs-scsn.fandm.edu</li></ul>{:/} |
 
 - **Note:** If you will be using SSH/SCP to connect to a server, you must first setup your personal computer using
   the instructions found [here](01_preliminaries)
