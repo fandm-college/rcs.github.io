@@ -28,7 +28,7 @@ The command to copy file(s) from the research server to your is very similar:
 scp auser@rcs-scsn.fandm.edu:/home/auser/*.job /Users/freddy/Desktop/
 ```
 
-- **scp** (or pscp on Windows) is the command for SCP
+- **scp** (or **pscp** on Windows) is the command for SCP
 - **auser@rcs-scsn.fandm.edu** is the research server, including our username, we want to copy from
 - **:/home/auser/\*.job** are the files we want to copy from the server.  In this example, we are copying all files that end with *.job* in auser's home directory
 - **/Users/freddy/Desktop/** is the directory on our personal computer where we are copying the files to.  In this example, it is the user's Desktop directory.

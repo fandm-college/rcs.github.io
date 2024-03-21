@@ -1,6 +1,6 @@
 # SSH
 
-You should use SSh in order to connect to a server to run programs.  When you connect, you will be using a command-line based interface to interact with the server.
+SSH stands for **S**ecure **Shell** and is used to connect to a server to run programs.  When you connect, you will be using usuallybe a command-line based interface to interact with the server.
 If you aren't familiar with such means of interaction and/or aren't familiar with the Linux operating system, we recommend looking through our Linux tutorial
 beginning with the [introduction to the command line](../linux/01_commandline.md)  
 
