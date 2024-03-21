@@ -1,11 +1,10 @@
 # SCP
 
-SCP stands for secure copy and is the command used to copy files between your personal computer and the research server you are using
-(inclding the cluster).  That is, **all commands and examples assume you are on your personal computer and not on the research server**.
+SCP stands for secure copy and is the command used to copy files/directories between your personal computer and the research server you are using
 
 This tutorial also assumes you have some familiarity with Linux directory structure [See our tutorial here](../linux/02_00_directory_intro.md).
 Both Mac OS X and Windows employ a tree-like directory structure similar to Linux, so the same basic ideas apply on these operating systems with the caveat that
-Windows uses a drive (usualy C:\\) as part of its convention.
+Windows uses a drive letter (usualy C:\\) as part of its directory structure convention.
 
 On Mac OS X you will be using terminal to perform SCP using the command *scp*.  On Windows, you must have PuTTY installed and you will be using cmd.exe to do SCP using the command
 *pscp* instead of *scp*.
@@ -41,5 +40,5 @@ demonstrate copying a directory called *output* to/from a research server simila
 
 ```bash
 scp -r output auser@rcs-scsn.fandm.edu:/home/auser/
-scp - r auser@rcs-scsn.fandm.edu:/home/auser/output/ /Users/freddy/Desktop/
+scp -r auser@rcs-scsn.fandm.edu:/home/auser/output/ /Users/freddy/Desktop/
 ```

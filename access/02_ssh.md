@@ -24,7 +24,7 @@ To setup a new connection
 1. Put `<userName>@<serverName>` in the box labelled **Host Name (or IP address)** (label 1 in the picture below).  For example: `rliu7@rcs-scsn.fandm.edu`
 2. Save the connection for easier access later by entering a name (whatever you want to call it) it in the box labelled **Saved Sessions** (label 2) and click **Save**
 
-![PuTTY connection window](putty.png)
+![PuTTY connection window](../images/putty.png)
 
 For sessions that run graphical applications, some adjustments must be made to the configuration:
   
@@ -36,21 +36,10 @@ For sessions that run graphical applications, some adjustments must be made to t
 3. Check the box labelled **Enable X11 forwarding**.  At this point, your PuTTY window should look similar to the picture below.
 4. Go back to the **Category:** box and click **Session**.  Then click **Save** to save the new settings.
 
-![PuTTY X11 forwarding](puttyX11.jpg)
+![PuTTY X11 forwarding](../images/puttyX11.jpg)
 
 To actually connect to a server, double click the name of the server in the **Saved Sessions** box, or single click it and then click **Open**.  If will be using a 
 graphical application, you should start the VcXsrv application before connecting.
 
 There may be times you wish to copy/paste text to/from the PuTTY window.  This can be done but doesn't work the way it normally would in Windows.
 Instructions can be found [here](https://www.alphr.com/copy-paste-putty/) on how to do this.
-
-## Troubleshooting Connection Problems
-
-From time to time you may encounter issues connecting.  Often times the cause is one of the following:
-
-1. Not connecting to VPN when off-campus
-2. Username is mistyped
-3. Server name is mistyped
-4. Password mistyped.  This one is trickier to determine but check things like Caps Lock, Num Lock, etc.
-
-If you continue to have issues connecting then contact us at: dorc@fandm.edu

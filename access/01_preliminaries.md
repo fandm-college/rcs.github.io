@@ -1,13 +1,6 @@
-# Preliminaries
+# Personal computer setup
 
-In order to acceess Resource Computing resources from off-campus (i.e., not directly connected to F&M's network) you will have to connect to F&M's VPN, GlobalProtect, and use DUO (soon switching to RapidIdentity) for authentication. Instructions for installing these programs are provided below:
-
-- [Instructions for DUO](https://docs.google.com/document/d/1xZ3xIFEj_16zujJMGEPaSxO1-fAb2kbC25WxY7kP1jE/edit?usp=sharing)
-- [Instructions for Global Protect VPN](https://docs.google.com/document/d/19nF8gaVCl8_c18pC95X19LQVZnGr3eLAkGlDcnsVV3c/edit?usp=sharing)
-- [Instructions for Rapid Identity (coming soon)](coming soon)
-
-If you are having trouble with these programs please contact the F&M helpdesk by calling them at 717-358-6789 or submitting a helpdesk ticket through [heldesk.fandm.edu](https://helpdesk.fandm.edu)
-In addition, there is operating system-specific setup(detailed below) that you will need to perform in order to access our compute resources regardless of whether that access is on or off campus.
+These instructions apply only if you will need to use SSH and/or SCP to access a computing resource.
 
 ## Mac OS X setup
 

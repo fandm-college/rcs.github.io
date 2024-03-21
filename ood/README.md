@@ -2,22 +2,23 @@
 sort: 4
 ---
 
-# Open OnDemand (OOD)
+# Introduction: Open OnDemand
 
-Open OnDemand is a web portal that provides access to the F&M research cluster.
-It allows user access and job management without the need for knowledge of Linux.
-That said, you may still need to access the cluster directly for some purposes.
+Open OnDemand (OOD) is a web portal that provides web access to the F&M research cluster.
+It allows user access and job management without the need to know much about Linux.
+However, we still recommending learning some Linux basics as there may be times
+you will still need to access the cluster directly through SSH.
 
-The URL is ```https://rcs-scsn.fandm.edu``` and your login credentials are your netID and password.
-Please note that if you try to access this website from off campus, you must connected to the VPN first.
+The OOD URL for F&M's cluster is ```https://rcs-scsn.fandm.edu``` and your login credentials are your netID and password.
+Just a reminder that if you try to access this website from off campus, you must connected to the VPN first.
 
-When you login you will get a page similar to:
+When you login you should see a page similar to the one below:
 
-![OOD homepage](homepage.png)
+![OOD homepage](../images/homepage.png)
 
 
-This is meant as a very high level overview of using Open OnDemand.  More details can
-often be found by searching on the web.  You can also reach out to us if you have questions.
+This  page is meant as a very high level overview of using Open OnDemand.  More details can
+ be found by searching on the web or reaching out to us if you have questions.
 
 ## Features
 
@@ -31,7 +32,7 @@ often be found by searching on the web.  You can also reach out to us if you hav
 You can access your home directory by selecting **Files --> Home Directory**.  You will be able to see
 the files and directories in your home directory as well as upload/download/delete/move/copy files.
 
-![Home directory](home_dir.png)
+![Home directory](../images/home_dir.png)
 
 **Important** File uploads are limited to small files (25MB or less).  
 Larger file uploads should still be done using ```scp``` ([see scp documentation](../access/03_scp.md))
@@ -43,12 +44,12 @@ see a screen similar to the one below.  You may  also see some completed jobs if
 completely.  Completed jobs are not active so will eventually be removed from this screen.  On the right-hand-side
 of the screen you can switch between viewing only your jobs and viewing all jobs.
 
-![Job queue](active_jobs.png)
+![Job queue](../images/active_jobs.png)
 
 You can see more information for a job by clicking the arrow to the left of each job.  This provides information
 such as the node(s) the job is running on, how long it's been running, etc.
 
-![Job info](job_info.png)
+![Job info](../images/job_info.png)
 
 ## Job Submissions
 
@@ -63,7 +64,7 @@ You can create new jobs in 3 different ways
   This option essentially converts a job you may already have on the cluster for use through OOD (more on this below)
 - Create a new job based on another job currently in your list of jobs: **+New Job --> From Selected Job**
 
-![Job composer ](job_composer.png)
+![Job composer ](../images/job_composer.png)
 
 As mentioned if you already have a job or jobs on the cluster and you wish to submit them through OOD, you must create a new job using option 2.  Because of the internals
 of OOD, you cannot use it directly.  Once you create your job in this way, you will have to make some edits to the job script.  As an example, consider a job in 
