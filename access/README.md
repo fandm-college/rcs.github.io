@@ -1,6 +1,13 @@
 ---
-sort: 3
+sort: 2
 ---
+
+# Accessing resources
+
+```
+{% raw %}{% include list.liquid all=true %}{% endraw %}
+```
+{% include list.liquid all=true %}
 
 # How to access resources
 

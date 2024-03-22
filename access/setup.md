@@ -1,6 +1,12 @@
-# Personal computer setup
+---
+sort: 2
+---
 
-These instructions apply only if you will need to use SSH and/or SCP to access a computing resource.
+# Setup SSH/SCP on personal computer
+
+```note
+You only need to use these instructions if you need SSH/SCP to access on of the compute resources
+```
 
 ## Mac OS X setup
 

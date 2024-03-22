@@ -1,4 +1,8 @@
-# SCP
+---
+sort: 4
+---
+
+# Introduction to SCP
 
 SCP stands for secure copy and is the command used to copy files/directories between your personal computer and the research server you are using
 
