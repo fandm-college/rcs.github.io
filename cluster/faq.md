@@ -1,3 +1,11 @@
+---
+sort: 5
+---
+
+# When will my job run?
+
+# My job failed (or completed too fast), now what?
+
 # How do I determine how many resources to request?
 
 It is important to have a basic understanding of how the amount of CPUs (`--ntasks`) and memory you request for you jobs impacts how/when jobs will run.  Because the cluster is a campus
@@ -10,7 +18,7 @@ Before discussing guidelines for specifying resoucre amounts, you must first kno
 There are 28 nodes (plus 1 additional GPU node) on the cluster.  Each node on the cluster consists of
 
 - 40 CPUs
-- 190 GB of memory
+- 192 GB of memory
 - By default (i.e., if not specified in the job script) the default amount of memory for a job is 4.75G * `ntasks` (i.e., the number of CPUs requested for the job)
 
 In addition, the GPU node (specified via the `--partition=gpu` directive) contains 4 GPUs as well as CPU and memory limits just mentioned.

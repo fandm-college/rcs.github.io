@@ -1,7 +1,8 @@
-# Job management and monitoring
+---
+sort: 4
+---
 
-Slurm provides a variety of tools that allow you to monitor and
-manage jobs.
+# Additional Slurm commands
 
 ## Slurm job queue
 

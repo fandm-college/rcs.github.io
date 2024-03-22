@@ -1,8 +1,8 @@
 ---
-sort: 2
+sort: 3
 ---
 
-# Accessing resources
+# Guide: Using the research compute cluster 
 
 ```
 {% raw %}{% include list.liquid all=true %}{% endraw %}

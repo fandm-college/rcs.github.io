@@ -1,17 +1,16 @@
-# Submitting jobs
+---
+sort: 2
+---
 
-Typically you will create a text file (refered to here as a job script) to specify the details of your job.  The job script typically contains two key sections
+# Job script basics
 
-1. A set of parameters/resources (e.g., # CPUs) needed to run the job
-2. Various commands to load/initialize and run the software
 
-Slurm will then schedule and run the job according to the parameters set in the job script when the needed resources become available. 
 
-## Basic job script template
+## Basic job script
 
-Below is a basic job script template.  Importantly the first line in the file must be `#!/bin/bash`.  After the first line are a series of lines all beginning with #SBATCH.  These are parameters
+Below is a basic job script.  The first line in the file must be `#!/bin/bash`.  After the first line are a series of lines all beginning with `#SBATCH`.  These are parameters
 that specify information about the job like the name of the job and the computational resources needed.  These directives always begin with `#SBATCH` and are covered in more detail in the next section.  
-After these directives comes the commands to load and run the necessary software.  More details specific to software can be found [here](../software/README.md).
+After these directives comes the commands to load and run the necessary software.
 
 ```bash
 #!/bin/bash
