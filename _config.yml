@@ -6,3 +6,6 @@ edit: false
 
 readme_index:
   with_frontmatter: true
+
+  sass:
+  style: compressed
