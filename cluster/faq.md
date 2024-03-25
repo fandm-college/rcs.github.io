@@ -1,10 +1,11 @@
 ---
 sort: 6
 ---
+# FAQ
 
-# When will my job run?
+## When will my job run?
 
-# My job failed (or completed too fast), now what?
+## My job failed (or completed too fast), now what?
 
 If your job fails, the first place to look is the output file you specified using the `output` directive.  More often than not, you will see some sort of error that will help you determine why the job failed.  If your software produces any output files, then those may also provide some clues as to why things did not complete successfully.  
 
@@ -17,7 +18,7 @@ While there are many reason a job may fail, but one of the more common reasons i
 
 Regardless, the next section discusses some guidleines to help you when it comes to memory (and other resource) usage.
 
-# How do I determine how many resources to request?
+## How do I determine how many resources to request?
 
 It is important to have a basic understanding of how the amount of CPUs (`--ntasks`) and memory you request for you jobs impacts how/when jobs will run.  Because the cluster is a campus
 shared resource, the impact is greater than to just any indivudual user.  Over-requesting resources (especially memory) can easily result in portions of the cluster being unused when they really could be used to run other jobs 

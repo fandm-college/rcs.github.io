@@ -33,12 +33,12 @@ We recommend that in your job script you clear any loaded modules before loading
 
 For example:
 
-`module load heimdall
-# RUN HEIMDALL
+`module load heimdall`
+`# RUN HEIMDALL`
 
-module purge
-module load miniconda
-# DO SOMETHING WITH CONDA`
+`module purge`
+`module load miniconda`
+`# DO SOMETHING WITH CONDA`
 
 ```
 
