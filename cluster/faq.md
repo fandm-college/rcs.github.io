@@ -6,6 +6,17 @@ sort: 5
 
 # My job failed (or completed too fast), now what?
 
+If your job fails, the first place to look is the output file you specified using the `output` directive.  More often than not, you will see some sort of error that will help you determine why the job failed.  If your software produces any output files, then those may also provide some clues as to why things did not complete successfully.  
+
+Additional Slurm commands discussed [here](05_commands.md) such as `squeue` and `sacct` also provide some information regarding the status of your job and possible reasons for failure.  If after checking through the various output files and job information supplied by other commands, you still aren't sure why your job failed or how to correct the issue then please contact us and we will assist you.
+
+While there are many reason a job may fail, but one of the more common reasons is because of memory issues (OUT_OF_MEMORY or OOM).  This is a result of either
+
+1. Not specifying the `--mem` or `--mem-per-cpu` and your job needing more than the default amount of memory -OR-
+2. Using one of the memory directives but not specifying a high enough value for the memory needed for your job.
+
+Regardless, the next section discusses some guidleines to help you when it comes to memory (and other resource) usage.
+
 # How do I determine how many resources to request?
 
 It is important to have a basic understanding of how the amount of CPUs (`--ntasks`) and memory you request for you jobs impacts how/when jobs will run.  Because the cluster is a campus

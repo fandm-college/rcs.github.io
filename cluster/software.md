@@ -1,3 +1,7 @@
+---
+sort: 3
+---
+
 # Research software on the cluster
 
 Because different software packages sometimes require conflicting dependencies, we will handle installing software.  You will then
@@ -78,27 +82,29 @@ In this output there are 7 different modules:
 The (D) besides a module specifies the default version that will be loaded using `module load moduleName`.
 For example, `module load gcc` will load GCC version 8.5 while `module load gcc/8.3.1` loads version 8.3.1 of GCC
 
-#
-```
 ## Conda environments
 
-Conda is an open-source package and environment management system that was orginally designed for Python software management.  In fact most of the scientific software loaded through Conda is written in Python.  
-We specifically use the Miniconda version of Conda for software management.  Conda itself is loaded as a module (as described above).  Once Conda is loaded, you  can activate an environment as:
+Conda is an open-source package and environment management system that was orginally designed for Python software management.  Most, but not all, of the scientific software 
+loaded through Conda is written in Python.  
+
+### Using Conda in a job script
+
+The cluster uses Miniconda for software management which must be loaded using the `module` command (as described above) before it can used.
+Once loaded, you can activate an environment as:
 
 ```bash
 conda activate environmentName
 ```
 
 replacing `environmentName` with the actual name of the environment (e.g. `conda activate neuron`)
-
 Once the environment is activated, in your job script you run your code as you normally would.
 
-You can deactivate the current Conda enviroment using `conda deactivate` (you do not need to use the environment name).
+You can deactivate the current Conda enviroment using the command `conda deactivate` (you do not need to use the environment name).
 
 ```note
 Only a single Conda environemnt can be active at one time.  
 
-If you try to activate another one using `conda activate`, the current environment will be deactivated meaning its software will not be available.
+If you try to activate another one using `conda activate`, the current environment will be deactivated meaning its software will not be available to run.
 ```
 
 ### Showing available Conda environments
@@ -116,5 +122,6 @@ psrchive          /opt/apps/miniconda3/envs/psrchive
 pysigproc         /opt/apps/miniconda3/envs/pysigproc
 ```
 
-The left column is the environment name.  That is what you will use with `conda activate`.  The right column is the path (i.e., folder) where that environment is located but the actual location of the 
+The left column is the environment name.  That is the environment name you will use with the `conda activate` command. 
+The right column is the path (i.e., folder) where that environment is located, but the actual location of the 
 Conda environment is not important.  What matters most for your job scripts is the environment name.
