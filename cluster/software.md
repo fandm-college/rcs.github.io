@@ -1,5 +1,5 @@
 ---
-sort: 3
+sort: 4
 ---
 
 # Research software on the cluster
@@ -29,24 +29,24 @@ module load moduleName/version
 ```
 
 ```note
-We recommend that in your job script you clear any loaded modules before loading other ones.  This can be done as `module purge`
+We recommend that in your job script you clear any loaded modules before loading other ones.  This can be done using `module purge`
 
 For example:
 
-module load heimdall
-## RUN HEIMDALL
+`module load heimdall
+# RUN HEIMDALL
 
 module purge
-
 module load miniconda
-## DO SOMETHING WITH MINICONDA
+# DO SOMETHING WITH CONDA`
+
 ```
 
 ```note
 Some modules require some additional lines to be added to the job script in order to use them
 
-- Miniconda add the following line: `eval "$(conda shell.bash hook)"`
-- Gaussian 16 add the following line (including the period at the beginning): `. $g16root/g16/bsd/g16.profile`
+- Miniconda: add the following line: `eval "$(conda shell.bash hook)"`
+- Gaussian16: add the following line (including the period at the beginning): `. $g16root/g16/bsd/g16.profile`
 ```
 
 ### Showing available modules
