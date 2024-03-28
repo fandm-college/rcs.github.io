@@ -29,8 +29,8 @@ You then submit your job script to the scheduler using the `sbatch` command.  Fo
 `chemistryrun1.job` then to submit that job you would use the command `sbatch chemistryrun1.job`
 
 ```warning
-The job script file should just contain text.  Programs such as Microsoft Word
-add additional formatting characters that often can't be seen when looking at the
+The job script file should just contain text.  Programs such as Microsoft Word 
+add additional formatting characters that often can't be seen when looking at the 
 file, but cause issues with Slurm and therefore should not be used to write 
 the job script files.
 ```

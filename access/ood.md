@@ -4,21 +4,21 @@ sort: 5
 
 # Introduction: Web acces to cluster
 
-Open OnDemand (OOD) is a web portal that provides web access to the F&M research cluster.
+Open OnDemand (OOD) is a web portal that provides browser-based access to the F&M research cluster.
 It allows user access and job management without the need to know much about Linux.
 However, we still recommending learning some Linux basics as there may be times
 you will still need to access the cluster directly through SSH.
 
-OOD allows you to use a web browser to interact with the cluster instead of using SSH/SCP
+OOD allows you to interact with the cluster instead of using SSH/SCP, providing functionality for
 
 - File management/transfer
 - Job submission/monitoring
 - Linux shell access
-- Run some GUI applications
+- Running a small set of software packages via a GUI
 
 The OOD URL for F&M's cluster is:
 
-```https://rcs-scsn.fandm.edu``` 
+[https://rcs-scsn.fandm.edu](https://rcs-scsn.fandm.edu)
 
 
 Your login credentials are your netID and password.
@@ -31,7 +31,7 @@ When you login you should see a page similar to the one below:
 
 ![OOD homepage](../images/homepage.png)
 
-This remainder of this introduction provides a very high level overview of using Open OnDemand.  More details can
+The remainder of this introduction provides a very high level overview of how to use Open OnDemand.  More details can
 be found by searching on the web or reaching out to us if you have questions.
 
 ## File Management/Transfer
@@ -41,8 +41,10 @@ the files and directories in your home directory as well as upload/download/dele
 
 ![Home directory](../images/home_dir.png)
 
-**Important** File uploads are limited to small files (25MB or less).  
-Larger file uploads should still be done using ```scp``` ([see scp documentation](../access/scp.md))
+```important
+File uploads are limited to small files (25MB or less).  
+Larger file uploads should still be done using `scp` ([see scp documentation](../access/scp.md))
+```
 
 ## Job Submission and Monitoring
 
@@ -61,7 +63,7 @@ such as the node(s) the job is running on, how long it's been running, etc.
 ### Creating new jobs
 
 ```note
-This section assumes you have a working knowledge of job scripts.  More details on job scripts can be found at: **ADD LINK TO SLURM BASICS**
+This section assumes you have a working knowledge of job scripts.  More details on job scripts can be found at: [Job script basics](../cluster/job_scripts.md)]
 ```
 
 You can create new jobs by selecting **Jobs --> Job Composer**.  You can create new jobs in 3 different ways
@@ -143,4 +145,14 @@ do almost anything you might normally do if your were connected to the cluster v
 
 ## Run GUI applications
 
-UNDER CONSTRUCTION
+Currently the OOD is configured to run Amsterdam Modeling Suite (AMS), MATLAB, and VMD using a GUI.
+These can be accessed via the Interactive Apps menu item.
+
+```important
+Compute access to the GUI applications is very limited in terms of compute resources (e.g., number of nodes, etc.)
+It is not meant as a means to do extensive computations, only to provide GUI access if needed(e.g., for quickly checking some output).
+
+If you need to use those software packages for more extensive computations, you should create a job script and submit
+it to the job scheduler as usual.
+
+```

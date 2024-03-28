@@ -14,11 +14,10 @@ Here we will briefly describe each of these mechanisms.
 
 ## Modules
 
-Environment Modules (or more commonly just modules) is a system for dynamically loading software packages into your environment using a command line tool called `module`. Software packages are installed in a central, read-only location and then a modulefile is built for the software which modifies your environment when you load this module, so that the software becomes visible to you.
-
+Environment Modules (or more commonly just modules) is a system for dynamically loading software packages using a command line tool called `module`.
 
 ### Using modules in a job script
-If your software is available via a module, you just add something like the following to your job script:
+If your software is accessible via a module, you just add something like the following to your job script:
 
 ```bash
 # Load newest version of a module
@@ -34,10 +33,13 @@ We recommend that in your job script you clear any loaded modules before loading
 For example:
 
 `module load heimdall`
+
 `# RUN HEIMDALL`
 
 `module purge`
+
 `module load miniconda`
+
 `# DO SOMETHING WITH CONDA`
 
 ```
@@ -45,8 +47,8 @@ For example:
 ```note
 Some modules require some additional lines to be added to the job script in order to use them
 
-- Miniconda: add the following line: `eval "$(conda shell.bash hook)"`
-- Gaussian16: add the following line (including the period at the beginning): `. $g16root/g16/bsd/g16.profile`
+- Miniconda: add `eval "$(conda shell.bash hook)"`
+- Gaussian16: add (including the period at the beginning): `. $g16root/g16/bsd/g16.profile`
 ```
 
 ### Showing available modules

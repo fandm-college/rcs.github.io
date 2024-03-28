@@ -2,7 +2,7 @@
 sort: 3
 ---
 
-# Guide: Using the research compute cluster 
+# Guide: Using the compute cluster 
 
 ```
 {% raw %}{% include list.liquid all=true %}{% endraw %}
