@@ -17,7 +17,7 @@ A fairly typical research workflow on the cluster is as follows:
 
 Running programs on the cluster is different from how you might typically run software on your personal computer.  The cluster uses a software package called Slurm 
 (**S**imple **l**inux **u**tility for **r**esource **m**anagement) to manage how/when programs are run on the cluster.  Essentially, you will submit a request to run your software.
-Your request which will be placed in a job queue and remain there until your job gets to the top of the queueu AND all necessary resources (e.g. # of CPUs, memory, etc.) are available.
+Your request will be placed in a job queue and remain there until your job gets to the top of the queue AND all necessary resources (e.g. # of CPUs, memory, etc.) are available. 
 At that point your job will begin to execute.
 
 In order to submit a job you will create a text file (refered to here as a job script) which contains two key sections:
