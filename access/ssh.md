@@ -4,9 +4,9 @@ sort: 3
 
 # Introduction to SSH
 
-SSH stands for **S**ecure **Shell** and is used to connect to a server to run programs.  When you connect, you will be using usuallybe a command-line based interface to interact with the server.
-If you aren't familiar with such means of interaction and/or aren't familiar with the Linux operating system, we recommend looking through our Linux tutorial
-beginning with the [introduction to the command line](../linux/01_commandline.md)  
+SSH stands for **S**ecure **Shell** and is used to connect to a server to run programs.  When you connect, you will be using usually be a command-line based interface to interact with the server.
+If you aren't familiar with such means of interaction and/or aren't familiar with the Linux operating system, we recommend looking through our Linux tutorial 
+beginning with the [Introduction to the command line](../linux/01_commandline.md)  
 
 Two quick notes related to `ssh`
 
@@ -45,5 +45,5 @@ For sessions that run graphical applications, some adjustments must be made to t
 To actually connect to a server, double click the name of the server in the **Saved Sessions** box, or single click it and then click **Open**.  If will be using a 
 graphical application, you should start the VcXsrv application before connecting.
 
-There may be times you wish to copy/paste text to/from the PuTTY window.  This can be done but doesn't work the way it normally would in Windows.
+There may be times you wish to copy/paste text to/from the PuTTY window.  This can be done but doesn't work the way it normally would in Windows. 
 Instructions can be found [here](https://www.alphr.com/copy-paste-putty/) on how to do this.

@@ -8,13 +8,13 @@ sort: 3
 These scripts are provided as examples only.  Any values for resource requests (e.g., --ntasks, --mem) are not meant to be used as recommendations for any of the
 software used in these examples.
 
-See the section How do I determine how 
+See the section [How many resources do I request?](job_scripts#how-many-resources-do-i-request) for guidance.
 ```
 
-## Software running on 1 CPU
+## Single software package, 1 CPU
 
-This script will submit a  job that runs on a single CPU.  This is not the best use of the cluster but is provided just as the most basic job script example.  
-This job requests 1 CPU, and a total of 16GB of memory.  It will run on a single node.
+This script will submit a job that runs on a single CPU.  This is not the best use of the cluster but is provided just as the most basic job script example.  
+This job requests 1 CPU, and a total of 16GB of memory.  It will run on a single node since there was only 1 CPU requested.
 
 ```bash
 #!/bin/bash
@@ -33,37 +33,40 @@ module load miniconda
 # Necessary step in order to use miniconda which this setup for neuron requires
 eval "$(conda shell.bash hook)"
 conda activate neuron
+
+# Change into the directory where my data is 
 cd neuron
 
-# Run the code.  Start by printing the date (to know when neuron actually started running)
+# Print the date/time to know when the software actually started processing
 date
 
+# Actually run the software
 nrnivmodl ./
 nrniv beginSimulation.hoc
 
-# Print the date again to know when it ended
+# Print the date/time again to know when it ended
 date
 ``` 
 
-## Software running in parallel (i.e., multiple CPUs)
+## Single software package, multiple CPUs
 
-This script is similar to the one above except the code will be run using multiple CPUs (96 in total) in parallel.  Because of the directives, `--ntasks=96` and `-tasks-per-node=24`,
-this job will execute on 4 nodes (96/24).  The memory request is specified as `--mem=16G` which means the job will reserve 16GB of memory **per node** which means in total it will reserve 64GB.
-Finally, the actual research software uses `mpiexec -n 96` to break the computation into 96 individual chunks.  That value, 96, matches the number of CPUs requested via **#SBATCH --ntasks=96**.
-You could have used a value smaller than 96 after the `-n` but not a larger value.  Doing so would cause your job to fail immediately because it is trying to use more resources
+This script is similar to the one above except the code will be run using multiple CPUs (96 in total) in parallel.  Because of the directives, `--nodes=4` and `-tasks-per-node=24`, 
+this job will request a total of 96 CPUs.  The memory request, specified as `--mem=16G`,  will reserve 16GB of memory **per node** for a total of 64GB. 
+Finally, the actual research software referenced here uses `mpiexec -n 96` to break the computation into 96 individual chunks.  That value, 96, matches the total number of CPUs requested. 
+You could have used a value smaller than 96 after the `-n` but not a larger value.  Doing so would cause your job to fail immediately because it is trying to use more resources 
 than what was requested.
 
 ```note
-This example uses `mpiexec` to break the computations into chunks that can be run in parallel.  In other cases, the software might have command-line options
-to run in parallel without the need for something like mpiexec.  However, not all software can be run in parallel.  You will need know the specifics of your
-software package(s) to know if you can run your software this way
+This example uses `mpiexec` to break the computations into chunks that can be run in parallel.  In other cases, software might have command-line options 
+to run in parallel without the need for something like `mpiexec`.  However, not all software can be run in parallel.  You will need know the specifics of your 
+software package(s) to know if you can run your software this way.
 ```
 
 ```bash
 #!/bin/bash
 
 #SBATCH --job-name=neuron-mpi-test-job
-#SBATCH --ntasks=96
+#SBATCH --nodes=96
 #SBATCH --tasks-per-node=24
 #SBATCH --mem=16G
 #SBATCH --output=neuron_mpi_%j.out
@@ -93,11 +96,11 @@ date
 
 ## Multiple, independent, software calls in parallel
 
-In this example, we are executing three different software packages which can be run at the same time (i.e. None of the packages rely on output from the others).
+In this example, we are executing three different software packages which can be run at the same time (i.e. None of the packages rely on output from the others). 
 In order to achieve this there are some additional commands needed:
 
 1. The use of `srun` which is a SLURM command to execute a single task
-2. The use of `>`   followed by a filename (e.g. `> sim.out`) when running our programs.  This notation redirects any program output that would normally print to the terminal,
+2. The use of `>`   followed by a filename (e.g. `> sim.out`) when running our programs.  This notation redirects any program output that would normally print to the terminal, 
    to instead write to the file specified.  The system will automatically create that file if it does not exist. Notice too we did not include the `#SBATCH --output=` 
    that would normally capture that information because we want each software package to to write to different files making it much easier to distinguish the output 
    from the different programs.

@@ -10,8 +10,8 @@ This tutorial also assumes you have some familiarity with Linux directory struct
 Both Mac OS X and Windows employ a tree-like directory structure similar to Linux, so the same basic ideas apply on these operating systems with the caveat that
 Windows uses a drive letter (usualy C:\\) as part of its directory structure convention.
 
-On Mac OS X you will be using terminal to perform SCP using the command *scp*.  On Windows, you must have PuTTY installed and you will be using cmd.exe to do SCP using the command
-*pscp* instead of *scp*.
+On Mac OS X you will be using terminal to perform SCP using the command `scp`.  On Windows, you must have PuTTY installed and you will be using `cmd.exe` to do SCP using the command 
+`pscp` instead of `scp`.
 
 ## Copying a file
 
@@ -39,7 +39,7 @@ scp auser@rcs-scsn.fandm.edu:/home/auser/*.job /Users/freddy/Desktop/
 
 ## Copying a directory
 
-The command to copy a directory is almost exactly the same as above except after the *scp* command we include *-r*.  The examples below
+The command to copy a directory is almost exactly the same as above except after the *scp* command we include *-r*.  The examples below 
 demonstrate copying a directory called *output* to/from a research server similar to the examples above.
 
 ```bash

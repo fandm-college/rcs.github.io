@@ -178,9 +178,10 @@ to over-request (grossly over-request) resources which never get used AND probab
 ```
 
 Before discussing the guidelines for determining resoucre amounts, you should first know what resources amounts are available on the cluster 
-because these are physical upper limits.  Requesting amounts in excess of this will cuase your job to fail immediately.
+because these are physical upper limits.  There are 3 key computational resources you will need to consider, CPUs, memory, and nodes.  If your 
+software uses a GPU, then you will additionally have to account for that.  Requesting amounts in excess of these physical limits will cuase your job to fail immediately.
 
-Currently the cluster has
+Currently the cluster has:
 
 - 29 nodes
   - 1 of these nodes is the GPU node and should only be used for software that requires a GPU
@@ -189,7 +190,8 @@ Currently the cluster has
   - 192 GB memory
 - GPU node has 4 GPUs
 
-Again any single job should never use all of any of the resources.  But just for clarity the computational upper limits are as follows:
+Again any single job should never use all of any of these resources.  But just for clarity the computational upper limits specified as sbatch directives 
+are as follows:
 
 - `#SBATCH --nodes` cannot exceed 28 (effectively 28 since the GPU node should ony be used for GPU based software)
 - `#SBACTH --ntasks`
@@ -201,7 +203,7 @@ Again any single job should never use all of any of the resources.  But just for
   - `#SBATCH --mem-per-cpu` times ntasks cannot exceed 192G
   - If no memory directive is specified, then the default is to use 4.75G * ntasks
 
-We currently do not set any resource limits in the job scheduler, however we do recommend that you follow these suggestions:
+We currently do not set any resource limits with the exception of using no more than two GPUs at a time.  However we do recommend that you follow these suggestions:
 
 - No more than 128 CPUs total
   - No more than 16 CPUs per node
@@ -209,22 +211,36 @@ We currently do not set any resource limits in the job scheduler, however we do 
 
 In addition, If you are going to request a certain number of nodes (using `#SBATCH --nodes`, which we recommend doing) then we suggest 
 requesting them in the general form `#SBATCH --nodes=min-max` where min is the minimum number of nodes you'd like to use and max is the maximum 
-number.  For example, `#SBATCH --nodes=3-6` will request anywhere from 3 to 6 nodes which have enough free CPUs and memory to run your job. 
-Requesting nodes this way gives the scheduler more flexibility when it comes to actually starting your job.
+number (as described above).  Requesting nodes this way gives the scheduler more flexibility when it comes to actually starting your job.
 
 ### Step 1: Understand your workflow and software
 
-The biggest benefit of a cluster...
+By workflow what we mean, is the entire process you use to analyze data using a computer.  This includes things like
 
-Below are some questions to help determine if your situation allows running parallel computations.  If the answer to any of these questions is YES, then your job 
-script should request more than just one CPU, either with `#SBATCH --ntasks` or `#SBATCH --ntasks-per-node`.  Guidance on the number of 
-CPUs to request will be provided in the next few sections.
+1. Data pre-processing
+2. Running oftware package(s) that do actual analysis/computational
+3. Data post-processing
+
+Depending on the specifics of your workflow not all of these steps need or should be done on the cluster.  We will assume that the bulk of computation, that which probably should be done 
+on the cluster is the 2nd step.
+
+The starting point for determing resource amounts should be determining if your workflow can use more than just one CPU to perform computations (i.e., run in parallel) 
+which may will also impact how many nodes you might need. Below are some questions to help determine if your situation allows running parallel computations.  If the 
+answer to any of these questions is YES, then your job script should request more than just one CPU, either with `#SBATCH --ntasks` or `#SBATCH --ntasks-per-node`.  
+Guidance on the number of CPUs to request will be provided in the next few sections.
 
 - Does my software run in parallel? **Note:**Just because you've never run a piece of software in parallel, does not mean it can't be done.
-- Am I running multiple pieces of software that can be run independent of each other? For example, I need to run *program1* and *program2*, but neither 
+  - If yes, then you will likely request a largish value for the number of CPUs (e.g., several dozen)
+
+- Am I running multiple pieces of software that can be run independent of each other? For example, I need to run *software1* and *software2*, but neither 
   program depends on the other so they can run at the same time.
-- Am I running the same piece of software multiple times with different inputs and/or parameters?  Often times these different runs can be 
-  executing at the same time.
+    - If yes, then you will likely request a small value for the number of CPUs (probably equal to the number of software packages that can be run at the same time)
+    - **Except** if any of those software packages can run in parallel (see first question).  For example, if *software1* can run in parallel and *software2* cannot then the total 
+    number of requested CPUs may be largish so *software1* can run in parallel plus 1 addtional CPU for *software2*
+
+- Am I running the same piece of software multiple times with different inputs and/or parameters?  Often times these different runs maybe with different data or different parameters 
+  which can be executing at the same time.
+  -  Again, the number of CPUs requested will be more than 1, but will vary depending on whether or not the software package can run in parallel or not
 
 ```tip
 Just because you may not be able to run software in parallel, does not mean you should not use the cluster.  If you have a computation or series of computations 
@@ -239,7 +255,7 @@ then remove the line `#SBATCH --nodes=2-4` and change the first line to `#SBATCH
 you may need.
 
 ```note
-This snippet only includes the reewust for things like CPUs and memory, you should also include other directives for things like 
+This snippet only includes the reqeust for things like CPUs and memory, you should also include other directives for things like 
 job name, output, etc., as well as all the commands you need to actually run the software.
 ```
 
@@ -250,7 +266,7 @@ job name, output, etc., as well as all the commands you need to actually run the
 #SBATCH --time=01:30:00
 ```
 
-This will script request a minimum of 2 nodes and a maximum of 4 nodes, and anywhere from 12 to 24 CPUs depending on how many nodes are assigned to your job, and 16GB of memory per node.  The final line sets a run 
+This script will request a minimum of 2 nodes and a maximum of 4 nodes, and anywhere from 12 to 24 CPUs depending on how many nodes are assigned to your job, and 16GB of memory per node.  The final line sets a run 
 time limit of 1.5 hours.  This sample script is just to get a rough idea of your computational requirtements, so if your computation would normally take hours or more, you don't want 
 to wait that long just for a test run.
 
