@@ -9,12 +9,19 @@ These scripts are provided as examples only.  Any values for resource requests (
 software used in these examples.
 
 See the section [How many resources do I request?](job_scripts#how-many-resources-do-i-request) for guidance.
+
+Also, these examples are not meant to demonstrate how to actually run any particular piece of software.  We are assuming you know how your software runs.
+```
+
+```tip
+The examples below some of the more common situations in regard to running software on the cluster.  Even though we have presented them as 
+distinct examples here, you certainly can (and should) mix and match scenarios in a job script to match your specific workflow.
 ```
 
 ## Single software package, 1 CPU
 
-This script will submit a job that runs on a single CPU.  This is not the best use of the cluster but is provided just as the most basic job script example.  
-This job requests 1 CPU, and a total of 16GB of memory.  It will run on a single node since there was only 1 CPU requested.
+This script will submit a job that runs a single piece of software using one CPU and requesting 16GB of memory.  This is not the best use of the cluster 
+but is provided just as an example of the most basic job script possible.
 
 ```bash
 #!/bin/bash
@@ -50,8 +57,8 @@ date
 
 ## Single software package, multiple CPUs
 
-This script is similar to the one above except the code will be run using multiple CPUs (96 in total) in parallel.  Because of the directives, `--nodes=4` and `-tasks-per-node=24`, 
-this job will request a total of 96 CPUs.  The memory request, specified as `--mem=16G`,  will reserve 16GB of memory **per node** for a total of 64GB. 
+This script is similar to the one above except the software will run in parallel using multiple CPUs (96 in total).  Because of the directives, `--nodes=4` and `-tasks-per-node=24`, 
+this job will request a total of 96 CPUs evenly distributed across 4 nodes.  The memory request, specified as `--mem=16G`,  will reserve 16GB of memory **per node** for a total of 64GB. 
 Finally, the actual research software referenced here uses `mpiexec -n 96` to break the computation into 96 individual chunks.  That value, 96, matches the total number of CPUs requested. 
 You could have used a value smaller than 96 after the `-n` but not a larger value.  Doing so would cause your job to fail immediately because it is trying to use more resources 
 than what was requested.
@@ -80,6 +87,8 @@ module load openmpi
 
 eval "$(conda shell.bash hook)"
 conda activate neuron
+
+# Go to the directory where my data files are
 cd neuron_mpi
 
 # Run the code
@@ -91,16 +100,89 @@ mpiexec -n 96 nrniv -mpi beginSimulation.hoc
 date
 ```
 
-## Multiple software calls
+## Multiple software packages
 
+This example runs three different software applications, in sequence.  That is the first software package (*prepcand* in this example) would 
+run to completion before the second software (*generate_cands*) runs.  This example would be similar to a workflow where one software package may produce output 
+another software package needs in order to run.
 
-## Multiple, independent, software calls in parallel
+```bash
+#!/bin/bash
 
-In this example, we are executing three different software packages which can be run at the same time (i.e. None of the packages rely on output from the others). 
-In order to achieve this there are some additional commands needed:
+#SBATCH --job-name=astronomy-test-job
+#SBATCH --output=pulsar_%j.out
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=auser@fadm.edu
+#SBATCH --ntasks=3
+#SBATCH --mem=24G
+
+# Load necessary software
+module purge
+module load miniconda
+
+# Load up first software package
+eval "$(conda shell.bash hook)"
+conda activate presto
+
+# Go to the directory where our data files are
+cd radio_pulse
+
+date
+
+# Run first piece of software
+precand m44_9032123.fil
+
+# Run 2nd piece of software
+generate_cands -input prepped_data.txt -output_format=csv
+
+# Load and run 3rd piece of software
+conda deactivate
+module purge
+module load astropy
+python eval_cands.py candidates.csv
+
+date
+```
+
+## Multiple software packages in parallel
+
+The idea behind this example is similar to the previous one with one major difference.  Instead of software packages being dependent on one another (as in the 
+previous example), this example demonstrates how to run packages that do not depend on each other and therefore could possibly be run at the same time 
+(that is in parallel). It is again up to you to understand your workflow and software packages to know if your specific job can be run this way or not.
+
+```bash
+#!/bin/bash
+
+#SBATCH --job-name=chemistry-test-job
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=auser@fadm.edu
+#SBATCH --ntasks=3
+#SBATCH --mem=64G
+
+module purge
+module load ams2022
+
+# Run the jobs
+date
+
+# Submit/run 1st job
+srun reaxff bonds.in > reaxff.out 2>&1 &
+
+# Submit/run 2nd job
+srun adf molecules1.txt > molecules1.out 2>&1 &
+
+# Submit/run 3rd job
+srun ams -prepinput molecules2.txt > amsprep.out 2>&1 &
+
+wait
+
+date
+```
+
+There are several impoartant pieces in this example which are necessary in order to do the computations in parallel.
 
 1. The use of `srun` which is a SLURM command to execute a single task
-2. The use of `>`   followed by a filename (e.g. `> sim.out`) when running our programs.  This notation redirects any program output that would normally print to the terminal, 
+2. The use of `>`   followed by a filename (e.g. `> reaxff.out`) when running our programs.  This notation redirects any program output that would normally print to the terminal, 
    to instead write to the file specified.  The system will automatically create that file if it does not exist. Notice too we did not include the `#SBATCH --output=` 
    that would normally capture that information because we want each software package to to write to different files making it much easier to distinguish the output 
    from the different programs.
@@ -109,55 +191,30 @@ In order to achieve this there are some additional commands needed:
    executing the next programsubmitting the next program to run.  
 5. The use of `wait` after all program calls command tells the system to wait for all the programs to finish running before executing any other commands/completing the job.
 
-```bash
-#!/bin/bash
+## Same software, different options/data, in parallel
 
-#SBATCH --job-name=neuron-test-job
-#SBATCH --ntasks=3
-
-module purge
-module load miniconda
-
-eval "$(conda shell.bash hook)"
-conda activate neuron
-cd neuron
-
-# Run the jobs
-date
-
-# Submit/run 1st job
-nrnivmodl ./
-srun nrniv beginSimulation.hoc > sim.out 2>&1 &
-
-# Submit/run 2nd job
-srun python eval_cands.py candidates.csv > eval.out 2>&1 &
-
-# Submit/run 3rd job
-srun ./generateCands -o randomData.txt > gen.out 2>&1 &
-
-wait
-
-date
-```
-
-## Multiple, similar software calls
-
-This example uses a powerful feature of Slurm called job arrays in order to run the same piece of software multiple times, but with different data sets.
-In this example we have decided to organize our data by placing  them in different directories making this example easier to run using job-array.
+This example uses a powerful feature of Slurm called job arrays in order to run the same piece of software multiple times in parallel, but say with different data sets.
+In this example we organized our data for each run by placing them in different directories to make the logic of the job-array simpler.
 However, there are many other ways we could have organized things and still used job arrays.  More details and examples of ways to use job arrays can be found 
 in [Slurm's job array documentation](https://slurm.schedmd.com/job_array.html)
 
 For this example,
 
-1. `--array=1-4` specifies the fact that we will be using a job array, specifically one that will include four jobs whose sub-job-id will be the values 1-4.
+1. `--array=1-4` specifies the fact that we will be using a job array, specifically one that will include four analyses whose sub-job-id will be the values 1-4.
 2. `${SLURM_ARRAY_TASK_ID}` is a Slurm specific variable that will take on the values specified by the `--array` directive.  Here we are using it to refer to 4 different directories, `sim1`, `sim2`, `sim3`, `sim4`
    The line in the script `cd sim${SLURM_ARRAY_TASK_ID}` will change into each subdirectory (sim1, sim2, sim3, sim4).  The system will automatically replace the `${SLURM_ARRAY_TASK_ID}` with the values 1,2,3,4.
 
+Then everything after the batch directives section in the script essentially gets treated as a loop that 
+
+1. Load and initialize the software packages
+2. Switches into the directory is sitting
+3. Runs the simulation software.  Because of how job arrays work, there's no need for the & as in the previous example in order to run parallel
+4. Switches back to a base directory in prepartion for switching to the next data directory.
 
 ```note
-The values for `--nodes` and `--ntasks` (and other directives that might apply to physical resources) apply to each individual sub-job.  
+The values for `--nodes` and `--ntasks` (and other directives that apply to physical resources) apply to each individual sub-job.  
 This is especially important when doing parallel code runs using for example `mpiexec` because it specifies what resources each individual 
-simulation is requesting (4 total nodes with each node needing 24 CPUs, 24GB available for use for this specific example).
+analysis is requesting (4 total nodes with each node needing 24 CPUs, 24GB available for use for this specific example).
 ```
 
 ```bash
@@ -179,9 +236,9 @@ conda activate neuron
 
 date
 
+# Run software on data
 cd sim${SLURM_ARRAY_TASK_ID}
-nrnivmodl ./
-srun mpiexec -n 24 nrniv -mpi beginSimulation.hoc
+srun mpiexec -n 24 nrniv -mpi beginSimulation.hoc 
 cd ..
 
 date                          
@@ -193,6 +250,16 @@ Job scripts which use software written to perform computations on a GPU will nee
 
 - `--partition=gpus`
 - `--gres`
+
+```warning
+If you have a workflow that may use a combination of GPU processing and CPU processing, there is an additional consideration when it comes to `--ntasks`.  If you will need more than 40 CPUs 
+for your workflow you will not be able to run the GPU software and CPU software packages in the same package because of how the cluster is setup.  You will 
+have to create two different job scripts and submit both of them for processing.  You can submit both of them without waiting for the first one to finish as follows:
+
+1. Submit the job file for that has to run first as usual with `sbatch`.  Make a note of the job id assigned to this job.
+2. Submit the second job as follows: `sbatch myscript.job -d after:jobid1` where *jobid1* is the job id from the first job.  The addition of -d after:` indicates to the 
+   job scheduler to run this job after the first job runs.
+```
 
 ### Using 1 GPU
 
@@ -240,7 +307,7 @@ module load heimdall
 
 date
 
-srun -n 1 heimdall -f test.1fil & 
+srun -n 1 heimdall -f test1.fil & 
 srun -n 1 heimdall -f test2.fil &
 
 wait
@@ -259,7 +326,5 @@ As in the above example, we are using the GPU partition but instead of 1 GPU we 
 The first line indicates that we want 1 gpu per task.  In most (but not all) cases, a program that uses GPUs will only be able to use a single GPU at a time.
 
 The second line says we need two CPUs per task.  In this example, two is an arbitrary value.  It could be 1 or some other small number.  The important part is that you do specify the number of CPUs per task and not make it large.  By default (that is if left unspecified) the default CPUs per task is all of the CPUs on a node.  If you don't specify CPUs per task the first GPU job will start to execute, and be given all the CPUs meaning the second GPU job can't execute becuase it's waiting on CPUs even though the GPU is available.
-
-Further, If the CPUs per task combined with the number of tasks is greater than the number of CPUs on a node (40 in this case) then the job won't run correctly.  For example if the CPUs per task in this example was 22 instead of just 2, then once again the first GPU job will start to execute, and be given 22  CPUs leaving only 18 available.  The second GPU job can't execute becuase it's waiting on CPUs even though the GPU is available.
 
 The last line says we have a total of two tasks.  Here we use two srun with the *&* to start each individual heimdall run in the background (meaning the second srun command does not wait for the first one to finish before it starts).  The use of *wait* then waits for both heimdall jobs to complete before moving on. 
