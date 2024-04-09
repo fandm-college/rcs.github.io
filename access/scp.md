@@ -4,7 +4,7 @@ sort: 4
 
 # Introduction to SCP
 
-SCP stands for secure copy and is the command used to copy files/directories between your personal computer and the research server you are using
+SCP stands for secure copy and is the command used to copy files/directories between your personal computer and the research server you are using.
 
 This tutorial also assumes you have some familiarity with Linux directory structure [See our tutorial here](../linux/02_00_directory_intro.md).
 Both Mac OS X and Windows employ a tree-like directory structure similar to Linux, so the same basic ideas apply on these operating systems with the caveat that

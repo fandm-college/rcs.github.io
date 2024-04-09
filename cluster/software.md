@@ -2,10 +2,10 @@
 sort: 4
 ---
 
-# Research software on the cluster
+# Accessing software
 
 Because different software packages sometimes require conflicting dependencies, we will handle installing software.  You will then
-access software in your job scripts using one of the following mechanisms:
+access (i.e, load/initialize) software in your job scripts using one of the following mechanisms:
 
 1. Modules
 2. Conda environments

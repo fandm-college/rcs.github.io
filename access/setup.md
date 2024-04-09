@@ -5,7 +5,7 @@ sort: 2
 # Setup SSH/SCP on personal computer
 
 ```note
-You only need to use these instructions if you need SSH/SCP to access on of the compute resources
+You only need to use these instructions if you need SSH/SCP to access any of the compute resources
 ```
 
 ## Mac OS X setup

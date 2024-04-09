@@ -7,12 +7,12 @@ sort: 1
 | **Resource** | **Access vis** |
 | MATLAB | COMING SOON|
 | ArcGIS | COMING SOON|
-| Jupyter | https://jupyterhub.fandm.edu:8000/ |
-| RStduio Pro | https://math-r.fandm.edu |
+| Jupyter | {::nomarkdown}<a href="https://jupyterhub.fandm.edu:8000"></a>{:/} |
+| RStduio Pro | {::nomarkdown}< href="https://math-r.fandm.edu"></a>{:/} |
 | Webwork | https://math.fandm.edu/webwork2 |
-| Globus | {::nomarkdown}<ul><li>Web access at https://app.globus.org/login</li><li>Or using the Connect Personal app downloadable at https://www.globus.org/globus-connect-personal</li></ul>{:/} |
+| Globus | {::nomarkdown}<ul><li>Web access at https://app.globus.org/login</li><li>Or using the Connect Personal app downloadable at <A href="https://www.globus.org/globus-connect-personal"></a></li></ul>{:/} |
 | Most other systems | {::nomarkdown}<ul><li>SSH to connect to a server and run commands</li><li>SCP to copy files and directories to/from a server</li></ul>{:/} |
-| Research cluster | {::nomarkdown}<ul><li>SSH/SCP</li><li>Web access through Open OnDemand at https://rcs-scsn.fandm.edu</li></ul>{:/} |
+| Research cluster | {::nomarkdown}<ul><li>SSH/SCP</li><li>Web access through Open OnDemand at <a href="https://rcs-scsn.fandm.edu"></a></li></ul>{:/} |
 
 ```note
 Because many of our resources use Linux 
@@ -20,6 +20,6 @@ as the operating system, we strongly suggest you go through our Linux tutorial [
 ```
 
 ```note
-If you need to use SSH/SCP to access a system you must setup your personal computer based on the instructions
+If you need to use SSH/SCP to access a system you must setup your personal computer based on the instructions 
 found [here](setup.md)
 ```

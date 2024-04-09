@@ -41,7 +41,7 @@ the files and directories in your home directory as well as upload/download/dele
 
 ![Home directory](../images/home_dir.png)
 
-```important
+```warning
 File uploads are limited to small files (25MB or less).  
 Larger file uploads should still be done using `scp` ([see scp documentation](../access/scp.md))
 ```
@@ -77,7 +77,8 @@ You can create new jobs by selecting **Jobs --> Job Composer**.  You can create 
 
 If you already have a job script on the cluster you wish to use/reuse with OOD, you must create a new job using option 2.  Because of the internal 
 workings of OOD, you cannot use the job script directly.  Once you create your job in this way, you will have to make some edits to the job script.  
-As an example, consider a job script in the directory ```/home/auser/job1``` as follows:
+
+As an example, consider a job script in the directory `/home/auser/job1` as follows:
 
 ```bash
 #!/bin/bash
@@ -129,7 +130,7 @@ date
 
 ```warning
 After creating the job, BUT before running it, highlight your job, and click the Job Options button.  
-Just above the Save button is a checkbox labeled ```Copy environment``.  Make sure to check that box and then click Save.  
+Just above the Save button is a checkbox labeled `Copy environment`.  Make sure to check that box and then click Save.  
 
 Many jobs will fail to run when submitted through the OOD web portal if that box is not selected.
 ```
@@ -145,14 +146,15 @@ do almost anything you might normally do if your were connected to the cluster v
 
 ## Run GUI applications
 
-Currently the OOD is configured to run Amsterdam Modeling Suite (AMS), MATLAB, and VMD using a GUI. 
-These can be accessed via the Interactive Apps menu item.
+Currently the OOD is configured to allow GUI access to the following software packages via the Interactive Apps menu item
+- Amsterdam Modeling Suite (AMS)
+- MATLAB
+- VMD
 
-```important
-Compute access to the GUI applications is very limited in terms of compute resources (e.g., number of nodes, etc.) 
-It is not meant as a means to do extensive computations, only to provide GUI access if needed(e.g., for quickly checking some output).
+```warning
+GUI access to these software packages is very limited in terms of the amount of compute resources you can use (e.g., number of nodes, etc.) 
+Access via the GUI is not meant as a means to do extensive computations, it is only to provide GUI access if needed(e.g., for quickly checking some output).
 
 If you need to use those software packages for more extensive computations, you should create a job script and submit 
 it to the job scheduler as usual.
-
 ```
