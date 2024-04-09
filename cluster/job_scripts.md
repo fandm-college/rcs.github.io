@@ -47,7 +47,7 @@ the job script files.
 
 ```note
 In the second section of the job script, where you run your software, any line starting with a `#` is treated as a comment and will be ignored by the system. 
-So in this example, the line 
+So in the above example, the line 
 
 `# Now that resources and such are specified actually setup and run software` 
 
@@ -60,7 +60,7 @@ Once you have created your script, you can submit your job using the `sbatch` co
 $ sbatch chem.job
 ```
 
-Your job may or may not begin to run immediately.  It will depend on whether or not the requested resources (e.g., CPUs, memory, nodes) are available
+Your job may or may not begin to run immediately.  It will depend on whether or not the requested resources (e.g., CPUs, memory, nodes) are available 
 and how many other jobs may be waiting in the job queue already.
 
 ## Slurm job directives (#SBATCH)
@@ -101,9 +101,9 @@ We recommend always specifying the following directives
 1. `--job-name` (Be sure to make your job name unique to make it easier to troubleshoot any issues)
 2. `--output`
 3. `--mail-user` and `-mail-type`
-4. `--ntasks` or both `--ntasks-per-node` and `--nodes'
+4. `--ntasks` and/or `--nodes`
   - As a rough guideline we recommend if you will be requesting more than 16 CPUs (i.e. `--ntasks` > 16), 
-    then you request at least two nodes and use the `--ntasks-per-node` and `--nodes' option
+    then you request at least two nodes
 5. `--mem` or `--mem-per-cpu` (These two directives are mutaully exclusive) 
   - We generally recommend using the `--mem` directive over the `--mem-per-cpu` directive.
 ```
@@ -115,13 +115,13 @@ For software that runs on a GPU you also must specify:
 2. `--gres` which will usually be in the form: `--gres=gpu:1`  The number after the colon is the number of GPUs needed.  In almost all cases the value should be 1.
 ```
 
-## The --output directive
+## The \-\-output directive
 
 Software packages sometimes output messages and errors directly to the terminal as they run.  The `--output` directive specifies a file name where such messages will 
 be written to instead of being dispalyed to the terminal.  It **does not** specify the name of output file(s) which your particular program may use to capture other output.  
 Those files still need to be specified as you normally would when running the software.
 
-For the `--output` directive we recommend using one of the following two formats depending on your specific curcumstances:
+For the `--output` directive we recommend using one of the following two formats depending on your specific circumstances:
 
 - `--output=myfilename_%j.out`  Here the `%j` will be replaced by the job-id Slurm generates automatically.  So if the job-id is 439 then the output would go to `myfilename_439.job`.  
   This will make it easier to differentiate output files if you run the same job script over and over again.
@@ -129,7 +129,7 @@ For the `--output` directive we recommend using one of the following two formats
 - `--output=myfilename_%A_%a.out`  Sometimes a job will have sub-jobs that get run (for example, running the same simulation multiples times from the same job script but each run uses different parameters).  
    In this case, `%A` refers to the job-id and `%a` refers to the sub-job-id.  For example if you ran 3 simulations, their sub-job-ids might be 1, 2, and 3 producing output files, `myfilename_439_1.out`, `myfilename_439_2.out`, and `myfilename_439_2.out`
 
-## The --nodes directive
+## The \-\-nodes directive
 
 If your job will be requesting resources on more than one node then there are some things to consider.  The `--nodes` directive 
 allows you to specify either an exact value (e.g., `--nodes=4` or  a range of values (e.g., `--nodes=2-4`.  In the first case,
@@ -226,10 +226,10 @@ on the cluster is the 2nd step.
 
 The starting point for determing resource amounts should be determining if your workflow can use more than just one CPU to perform computations (i.e., run in parallel) 
 which may will also impact how many nodes you might need. Below are some questions to help determine if your situation allows running parallel computations.  If the 
-answer to any of these questions is YES, then your job script should request more than just one CPU, either with `#SBATCH --ntasks` or `#SBATCH --ntasks-per-node`.  
-Guidance on the number of CPUs to request will be provided in the next few sections.
+answer to any of these questions is YES, then your job script should request more than just one CPU, either with `#SBATCH --ntasks` or `#SBATCH --ntasks-per-node`. Further 
+guidance on the number of CPUs to request will be provided in the next few sections.
 
-- Does my software run in parallel? **Note:**Just because you've never run a piece of software in parallel, does not mean it can't be done.
+- Check the documentation to see if the software allows an option to run in parallel. **Note:**Just because you've never run a piece of software in parallel, does not mean it can't be done.
   - If yes, then you will likely request a largish value for the number of CPUs (e.g., several dozen)
 
 - Am I running multiple pieces of software that can be run independent of each other? For example, I need to run *software1* and *software2*, but neither 
@@ -312,4 +312,5 @@ having more CPUs does not produce a computational benefit especially in relation
 1. Check the documentation for your software for recommendations on the number of CPUs and/or amount of memory
 2. If you will be running software in parallel on multiple nodes, we recommend trying to distribute the number 
    of CPUs equally across nodes using `--ntasks-per-node`
-3. Once you do some actual computations, use `seff` after the jobs complete to assess your resource usage
+3. Once you do some actual computations, use `seff` after the jobs complete to assess your resource usage and adjust 
+   your jobs scripts as necessary.

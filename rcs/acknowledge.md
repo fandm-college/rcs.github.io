@@ -2,7 +2,7 @@
 sort: 4
 ---
 
-## Acknowledging Research Computing in research
+# Acknowledging Research Computing in research
 
 We are asking that use of Franklin and Marshall Research Computing resources be 
 acknowledged in research (papers, grant proposals, posters, etc.) as follows:
