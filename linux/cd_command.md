@@ -1,3 +1,7 @@
+---
+sort: 4
+---
+
 # Directory navigation
 
 Now that we've covered some basics regarding the organization of directories within Linux, let us now turn our attention
@@ -5,7 +9,7 @@ to navigating from one directory to another.  Please note that throughout the re
 make extensive use of the `pwd` command.  This is only to make it clear which directory we are in at any given point
 in the example.  Normally you would not need to make such extensive use of it.
 
-![Linux directory structure for navigation example](filesystem2.jpg)
+![Linux directory structure for navigation example](../images/filesystem2.jpg)
 
 The command to move from one directory to another is the `cd` command.  With no arguments this command
 will change you to your home directory regardless of which directory you are currently in.

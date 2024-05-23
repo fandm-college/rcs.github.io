@@ -1,3 +1,7 @@
+---
+sort: 2
+---
+
 # Introduction: Directories and files
 
 Understanding how directories and files are organized in Linux is perhaps the biggest obstacle when it

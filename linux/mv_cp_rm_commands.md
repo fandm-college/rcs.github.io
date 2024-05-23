@@ -1,3 +1,7 @@
+---
+sort: 6
+---
+
 # Create/remove/copy/move files and directories
 
 In some regards, Linux treats directories and file as mostly the same.  As a result, many of the commands described below

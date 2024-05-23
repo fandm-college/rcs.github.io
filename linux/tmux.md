@@ -1,3 +1,7 @@
+---
+sort: 7
+---
+
 # Introduction to tmux
 
 For programs that may run a long time (hours or more) that are not being run on the research cluster, we suggest using `tmux`.  Among 
@@ -8,7 +12,7 @@ on-line.
 
 ```tmux``` will start a new session which will look something like the following:
 
-![Tmux screen](tmux.png)
+![Tmux screen](../images/tmux.png)
 
 Once you have started a `tmux` session you can run commands as you normally would.  If the command you are running will take a long time to complete,
 then once it is started you can type ```Ctrl-b d``` (Press ```control``` and ```b``` together, release, then press ```d```).  This detaches from

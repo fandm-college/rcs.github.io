@@ -1,3 +1,7 @@
+---
+sort: 3
+---
+
 # Basic directory structure
 
 In Linux, directories (think of a directory as a folder) are organized in a strictly hierarchical fashion known as a tree.
@@ -5,7 +9,7 @@ Or more appropriately, an upside-down tree with the base or root of the tree at 
 directory is a single directory called the *root* directory.  The root directory contains all other directories and their 
 subdirectories. In Linux the root directory is denoted by `/`. 
 
-![Linux directory structure](filesystem.jpg)
+![Linux directory structure](../images/filesystem.jpg)
 
 In the example above, the root directory contains five immediate subdirectories,*bin*, *boot*, *dev*, *home*, 
 and *usr*.  These are usually denoted `/bin`, `/boot`, 

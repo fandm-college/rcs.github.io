@@ -1,3 +1,0 @@
-# Redirecting output
-
-**UNDER CONSTRUCTION**

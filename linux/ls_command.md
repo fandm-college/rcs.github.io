@@ -1,3 +1,7 @@
+---
+sort: 5
+---
+
 # Listing directory contents
 
 The command to see the contents of a directory is `ls`.  By default it will list the contents of the directory

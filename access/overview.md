@@ -8,9 +8,9 @@ sort: 1
 | MATLAB | COMING SOON|
 | ArcGIS | COMING SOON|
 | Jupyter | {::nomarkdown}<a href="https://jupyterhub.fandm.edu:8000"></a>{:/} |
-| RStduio Pro | {::nomarkdown}< href="https://math-r.fandm.edu"></a>{:/} |
-| Webwork | https://math.fandm.edu/webwork2 |
-| Globus | {::nomarkdown}<ul><li>Web access at https://app.globus.org/login</li><li>Or using the Connect Personal app downloadable at <A href="https://www.globus.org/globus-connect-personal"></a></li></ul>{:/} |
+| RStduio Pro | {::nomarkdown}<a href="https://math-r.fandm.edu"></a>{:/} |
+| Webwork |{::nomarkdown}<a href="https://math.fandm.edu/webwork2"></a>{:/} |
+| Globus | {::nomarkdown}<ul><li>Web access at https://app.globus.org/login</li><li>Or using the Connect Personal app downloadable at <a href="https://www.globus.org/globus-connect-personal"></a></li></ul>{:/} |
 | Most other systems | {::nomarkdown}<ul><li>SSH to connect to a server and run commands</li><li>SCP to copy files and directories to/from a server</li></ul>{:/} |
 | Research cluster | {::nomarkdown}<ul><li>SSH/SCP</li><li>Web access through Open OnDemand at <a href="https://rcs-scsn.fandm.edu"></a></li></ul>{:/} |
 

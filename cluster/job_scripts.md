@@ -183,7 +183,7 @@ software uses a GPU, then you will additionally have to account for that.  Reque
 
 Currently the cluster has:
 
-- 29 nodes
+- 37 nodes
   - 1 of these nodes is the GPU node and should only be used for software that requires a GPU
 - Each node (including the GPU node) has
   - 40 CPUs
