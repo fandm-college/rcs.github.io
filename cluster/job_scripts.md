@@ -183,17 +183,17 @@ software uses a GPU, then you will additionally have to account for that.  Reque
 
 Currently the cluster has:
 
-- 37 nodes
-  - 1 of these nodes is the GPU node and should only be used for software that requires a GPU
+- 38 nodes
+  - 2 of these nodes is the GPU node and should only be used for software that requires a GPU
 - Each node (including the GPU node) has
   - 40 CPUs
   - 192 GB memory
-- GPU node has 4 GPUs
+- GPU nodes ha4 4 GPUs
 
 Again any single job should never use all of any of these resources.  But just for clarity the computational upper limits specified as sbatch directives 
 are as follows:
 
-- `#SBATCH --nodes` cannot exceed 28 (effectively 28 since the GPU node should ony be used for GPU based software)
+- `#SBATCH --nodes` cannot exceed 36 (effectively 36 since the GPU nodes should ony be used for GPU based software)
 - `#SBACTH --ntasks`
   - cannot not exceed 1120 if you do not also specify `#SBATCH --nodes`
   - if you do specify `#SBATCH --nodes` then the number of tasks divided by the number of nodes cannot exceed 40
